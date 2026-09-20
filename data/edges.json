@@ -1,0 +1,62 @@
+[
+  {"from":"ENTRANCE","to":"H0","distance":1.1},
+  {"from":"H0","to":"H1","distance":3.3},
+  {"from":"H1","to":"H2","distance":6.9},
+  {"from":"H2","to":"H3","distance":6.7},
+  {"from":"H3","to":"H4","distance":3.5},
+  {"from":"H4","to":"H5","distance":4.5},
+  {"from":"H5","to":"R_TOP","distance":6.2},
+
+  {"from":"H0","to":"W204_DOOR","distance":1.5},
+  {"from":"H0","to":"W205_DOOR","distance":1.5},
+
+  {"from":"H1","to":"W203_D1","distance":1.5},
+
+  {"from":"H2","to":"W203_D2","distance":1.5},
+  {"from":"H2","to":"W206_DOOR","distance":1.5},
+
+  {"from":"H3","to":"W203_D3","distance":1.5},
+
+  {"from":"H4","to":"W207_DOOR","distance":1.5},
+  {"from":"H5","to":"W202_DOOR","distance":1.5},
+
+  {"from":"R_TOP","to":"TL","distance":11.2},
+  {"from":"R_TOP","to":"TR","distance":11.3},
+
+  {"from":"TL","to":"J218","distance":0.6},
+  {"from":"J218","to":"JFE_L","distance":2.8},
+  {"from":"JFE_L","to":"J217","distance":3.9},
+  {"from":"J217","to":"J216","distance":3.4},
+  {"from":"J216","to":"J216A","distance":17.9},
+  {"from":"J216A","to":"J215","distance":2.2},
+  {"from":"J215","to":"J214","distance":6.9},
+  {"from":"J214","to":"BL","distance":3.2},
+
+  {"from":"TR","to":"J208","distance":0.6},
+  {"from":"J208","to":"JFE1","distance":2.8},
+  {"from":"JFE1","to":"J209","distance":3.2},
+  {"from":"J209","to":"J210","distance":6.8},
+  {"from":"J210","to":"J211","distance":10.2},
+  {"from":"J211","to":"BR","distance":17.3},
+
+  {"from":"BL","to":"J213","distance":16.2},
+  {"from":"J213","to":"BR","distance":6.3},
+
+  {"from":"J218","to":"W218_DOOR","distance":1.2},
+  {"from":"JFE_L","to":"FE_L","distance":1.2},
+  {"from":"J217","to":"W217_DOOR","distance":1.2},
+  {"from":"J216","to":"W216_DOOR","distance":1.2},
+  {"from":"J216A","to":"W216A_DOOR","distance":1.2},
+  {"from":"J215","to":"W215_DOOR","distance":1.2},
+  {"from":"J214","to":"W214_DOOR","distance":1.2},
+
+  {"from":"J208","to":"W208_DOOR","distance":1.2},
+  {"from":"JFE1","to":"FE_1","distance":1.2},
+  {"from":"J209","to":"W209_DOOR","distance":1.2},
+  {"from":"J210","to":"W210_DOOR","distance":1.2},
+  {"from":"J211","to":"W211_DOOR","distance":1.2},
+
+  {"from":"BR","to":"W212_DOOR","distance":1.2},
+  {"from":"J213","to":"W213_DOOR","distance":1.2},
+  {"from":"BR","to":"FE_B","distance":1.5}
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "id":"WAB202",
+    "code":"WAB 202",
+    "name":"Faculty Cabin CSE + Office of HOD CSE",
+    "category":"FACULTY",
+    "doors":[{"node":"W202_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB203",
+    "code":"WAB 203",
+    "name":"CSE Seminar Hall",
+    "category":"SEMINAR_HALL",
+    "doors":[
+      {"node":"W203_D1","label":"D1 — Third Entrance"},
+      {"node":"W203_D2","label":"D2 — Primary Entrance","primary":true},
+      {"node":"W203_D3","label":"D3 — Secondary Entrance"}
+    ],
+    "searchable":true
+  },
+  {
+    "id":"WAB204",
+    "code":"WAB 204",
+    "name":"M.Tech S1/S2 CSE Staffroom",
+    "category":"STAFFROOM",
+    "doors":[{"node":"W204_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB205",
+    "code":"WAB 205",
+    "name":"CSE S3A/S4B",
+    "category":"CLASSROOM",
+    "doors":[{"node":"W205_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB206",
+    "code":"WAB 206",
+    "name":"CSE S3B/S3A",
+    "category":"CLASSROOM",
+    "doors":[{"node":"W206_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB207",
+    "code":"WAB 207",
+    "name":"S3/S4 CSE C",
+    "category":"CLASSROOM",
+    "doors":[{"node":"W207_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB208",
+    "code":"WAB 208",
+    "name":"Men's Washroom",
+    "category":"FACILITY",
+    "doors":[{"node":"W208_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB209",
+    "code":"WAB 209",
+    "name":"CSE Library",
+    "category":"LIBRARY",
+    "doors":[{"node":"W209_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB210",
+    "code":"WAB 210",
+    "name":"CSE S5A/S6B",
+    "category":"CLASSROOM",
+    "doors":[{"node":"W210_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB211",
+    "code":"WAB 211",
+    "name":"CSE S5B/S6A",
+    "category":"CLASSROOM",
+    "doors":[{"node":"W211_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB212",
+    "code":"WAB 212",
+    "name":"CSE S5/S6 C",
+    "category":"CLASSROOM",
+    "doors":[{"node":"W212_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB213",
+    "code":"WAB 213",
+    "name":"Data Structures Laboratory / System Laboratory",
+    "category":"LABORATORY",
+    "doors":[{"node":"W213_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB214",
+    "code":"WAB 214",
+    "name":"Faculty Cabin CSE",
+    "category":"FACULTY",
+    "doors":[{"node":"W214_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB215",
+    "code":"WAB 215",
+    "name":"Faculty Cabin CSE C2",
+    "category":"FACULTY",
+    "doors":[{"node":"W215_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB216A",
+    "code":"WAB 216A",
+    "name":"Project Laboratory",
+    "category":"LABORATORY",
+    "doors":[{"node":"W216A_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB216",
+    "code":"WAB 216",
+    "name":"Programming Environmental Laboratory / Compiler Laboratory",
+    "category":"LABORATORY",
+    "doors":[{"node":"W216_DOOR","primary":true}],
+    "searchable":true
+  },
+  {
+    "id":"WAB217",
+    "code":"WAB 217",
+    "name":"Storage Room",
+    "category":"STORAGE",
+    "doors":[{"node":"W217_DOOR","primary":true}],
+    "searchable":false,
+    "locked":true,
+    "status":"Usually closed"
+  },
+  {
+    "id":"WAB218",
+    "code":"WAB 218",
+    "name":"Ladies Washroom",
+    "category":"FACILITY",
+    "doors":[{"node":"W218_DOOR","primary":true}],
+    "searchable":true
+  }
+]

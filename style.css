@@ -1,0 +1,438 @@
+:root {
+  --blue: #0077B8;
+  --cyan: #00A9E0;
+  --orange: #F58220;
+  --gold: #FFB52E;
+  --navy: #12344A;
+  --ivory: #FFF9ED;
+  --cream: #F5E8CF;
+  --green: #176B3A;
+  --brick: #8B2E2A;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #24292e;
+  color: var(--navy);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* Mobile-first 9:19.5 Target Container */
+#phone-frame {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  max-height: 910px; /* ~9:19.5 ratio */
+  background-color: var(--ivory);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border-left: 2px solid var(--navy);
+  border-right: 2px solid var(--navy);
+}
+
+@media (max-width: 480px) {
+  #phone-frame {
+    max-height: 100vh;
+    border: none;
+  }
+}
+
+/* App Header */
+.app-header {
+  background-color: var(--navy);
+  color: var(--ivory);
+  padding: 12px 16px;
+  flex-shrink: 0;
+  border-bottom: 3px solid var(--orange);
+}
+
+.header-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+}
+
+.header-subtitle {
+  font-size: 0.78rem;
+  color: var(--cream);
+  margin-top: 2px;
+}
+
+/* Error Banner */
+.error-banner {
+  background-color: var(--brick);
+  color: var(--ivory);
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 12px;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--cream);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Main App Layout */
+.app-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0; /* Important for flex child scrolling */
+}
+
+/* Search Section (Fixed at top of main) */
+.search-section {
+  padding: 12px 14px 8px;
+  background-color: var(--ivory);
+  border-bottom: 2px solid var(--cream);
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.search-box-wrapper {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--navy);
+  background-color: #ffffff;
+  border: 2px solid var(--blue);
+  border-radius: 6px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--orange);
+}
+
+/* Autocomplete Results Dropdown */
+.search-results {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 14px;
+  right: 14px;
+  background-color: #ffffff;
+  border: 2px solid var(--navy);
+  border-radius: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(18, 52, 74, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--cream);
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover,
+.search-result-item:focus {
+  background-color: var(--cream);
+  outline: none;
+}
+
+.result-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.result-code {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--navy);
+}
+
+.result-name {
+  font-size: 0.78rem;
+  color: #555555;
+}
+
+.result-category {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--blue);
+  background-color: var(--ivory);
+  padding: 3px 6px;
+  border: 1px solid var(--cyan);
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* Route Information Card */
+.route-card {
+  margin-top: 10px;
+  background-color: var(--cream);
+  border: 1.5px solid var(--navy);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.route-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.badge-category {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--blue);
+  background-color: #ffffff;
+  padding: 2px 6px;
+  border: 1px solid var(--blue);
+  border-radius: 3px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.distance-badge {
+  background-color: var(--orange);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.route-status {
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--green);
+  min-height: 1.2em;
+}
+
+/* Route Action Buttons (Replay, Skip) */
+.route-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.action-btn {
+  background-color: var(--ivory);
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background-color: var(--cream);
+  border-color: var(--orange);
+}
+
+/* Player Marker Styles */
+.player-marker {
+  pointer-events: none;
+}
+
+.player-marker circle {
+  transition: fill 0.3s ease;
+}
+
+.player-marker.idle circle {
+  fill: var(--green);
+  stroke: var(--ivory);
+}
+
+/* Multi-Door Chips (WAB 203) */
+.door-chips-container {
+  margin-top: 8px;
+}
+
+.door-chips-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chips-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+.chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.door-chip {
+  background-color: #ffffff;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.door-chip:hover {
+  background-color: var(--ivory);
+}
+
+.door-chip.active {
+  background-color: var(--navy);
+  color: var(--gold);
+  border-color: var(--navy);
+}
+
+/* Collapsible Route Details */
+.route-details {
+  margin-top: 8px;
+  border-top: 1px dashed var(--navy);
+  padding-top: 6px;
+}
+
+.details-summary {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  user-select: none;
+}
+
+.node-id-list {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.7rem;
+}
+
+.node-id-badge {
+  background-color: #ffffff;
+  border: 1px solid #bbbbbb;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: var(--navy);
+}
+
+.node-arrow {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* Map Section (Scrollable Area) */
+.map-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--ivory);
+  position: relative;
+}
+
+.map-controls-hint {
+  font-size: 0.68rem;
+  color: #666666;
+  text-align: center;
+  padding: 4px 8px;
+  background-color: var(--cream);
+  border-bottom: 1px solid #dddddd;
+  flex-shrink: 0;
+}
+
+.map-container {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12px;
+  background-color: var(--ivory);
+  -webkit-overflow-scrolling: touch;
+}
+
+.campus-map-svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  display: block;
+}
+
+/* SVG Door Hover effect */
+.door-node:not(.locked) {
+  transition: opacity 0.15s ease;
+}
+
+.door-node:not(.locked):hover {
+  opacity: 0.8;
+}
+
+.door-node.locked {
+  cursor: not-allowed;
+}

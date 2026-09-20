@@ -1,0 +1,1092 @@
+[
+  {
+    "file": "wab_wall_horizontal.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_horizontal.png",
+    "original_path": "assets/wab_wall_horizontal.png",
+    "width": 1983,
+    "height": 793,
+    "transparent": true,
+    "notes": "Horizontal wall segment (1983x793, thickness 793px)"
+  },
+  {
+    "file": "wab_wall_vertical.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_vertical.png",
+    "original_path": "assets/wab_wall_vertical.png",
+    "width": 793,
+    "height": 1983,
+    "transparent": true,
+    "notes": "Vertical wall segment (793x1983, thickness 793px)"
+  },
+  {
+    "file": "wab_wall_corner_tl.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_corner_tl.png",
+    "original_path": "assets/wab_wall_corner_tl.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Top-left wall corner piece (1254x1254)"
+  },
+  {
+    "file": "wab_wall_corner_tr.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_corner_tr.png",
+    "original_path": "assets/wab_wall_corner_tr.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Top-right wall corner piece (1254x1254)"
+  },
+  {
+    "file": "wab_wall_corner_bl.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_corner_bl.png",
+    "original_path": "assets/wab_wall_corner_bl.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Bottom-left wall corner piece (1254x1254)"
+  },
+  {
+    "file": "wab_wall_corner_br.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_corner_br.png",
+    "original_path": "assets/wab_wall_corner_br.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Bottom-right wall corner piece (1254x1254)"
+  },
+  {
+    "file": "wab_wall_end.png",
+    "group": "walls",
+    "path": "assets/walls/wab_wall_end.png",
+    "original_path": "assets/wab_wall_end.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Wall cap / terminal end piece (1254x1254)"
+  },
+  {
+    "file": "wab_wall_entrance.png",
+    "group": "special-walls",
+    "path": "assets/special-walls/wab_wall_entrance.png",
+    "original_path": "assets/wab_wall_entrance.png",
+    "width": 1536,
+    "height": 1024,
+    "transparent": true,
+    "notes": "Main entrance arch / portal structure"
+  },
+  {
+    "file": "wab_wall_archway.png",
+    "group": "special-walls",
+    "path": "assets/special-walls/wab_wall_archway.png",
+    "original_path": "assets/wab_wall_archway.png",
+    "width": 1374,
+    "height": 1145,
+    "transparent": true,
+    "notes": "Interior open archway pass-through"
+  },
+  {
+    "file": "wab_wall_window.png",
+    "group": "special-walls",
+    "path": "assets/special-walls/wab_wall_window.png",
+    "original_path": "assets/wab_wall_window.png",
+    "width": 1448,
+    "height": 1086,
+    "transparent": true,
+    "notes": "Standard corridor window wall segment"
+  },
+  {
+    "file": "wab_wall_large_window.png",
+    "group": "special-walls",
+    "path": "assets/special-walls/wab_wall_large_window.png",
+    "original_path": "assets/wab_wall_large_window.png",
+    "width": 1536,
+    "height": 1024,
+    "transparent": true,
+    "notes": "Wide / large observation window wall segment"
+  },
+  {
+    "file": "wab_wall_pillar.png",
+    "group": "special-walls",
+    "path": "assets/special-walls/wab_wall_pillar.png",
+    "original_path": "assets/wab_wall_pillar.png",
+    "width": 1086,
+    "height": 1448,
+    "transparent": true,
+    "notes": "Short decorative pillar (1086x1448)"
+  },
+  {
+    "file": "wab_wall_column.png",
+    "group": "special-walls",
+    "path": "assets/special-walls/wab_wall_column.png",
+    "original_path": "assets/wab_wall_column.png",
+    "width": 887,
+    "height": 1774,
+    "transparent": true,
+    "notes": "Tall two-story structural column (887x1774)"
+  },
+  {
+    "file": "room_door_closed.png",
+    "group": "doors",
+    "path": "assets/doors/room_door_closed.png",
+    "original_path": "assets/room_door_closed.png",
+    "width": 1086,
+    "height": 1448,
+    "transparent": true,
+    "notes": "Generic classroom / office closed door (1086x1448)"
+  },
+  {
+    "file": "room_door_open.png",
+    "group": "doors",
+    "path": "assets/doors/room_door_open.png",
+    "original_path": "assets/room_door_open.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Generic open door portal (1254x1254, square aspect ratio)"
+  },
+  {
+    "file": "room_door_shadow.png",
+    "group": "doors",
+    "path": "assets/doors/room_door_shadow.png",
+    "original_path": "assets/room_door_shadow.png",
+    "width": 1774,
+    "height": 887,
+    "transparent": true,
+    "notes": "Floor cast-shadow underneath doorways (1774x887)"
+  },
+  {
+    "file": "seminar_door.png",
+    "group": "doors",
+    "path": "assets/doors/seminar_door.png",
+    "original_path": "assets/seminar_door.png",
+    "width": 1182,
+    "height": 1330,
+    "transparent": true,
+    "notes": "CSE Seminar Hall double door (WAB 203)"
+  },
+  {
+    "file": "lab_door.png",
+    "group": "doors",
+    "path": "assets/doors/lab_door.png",
+    "original_path": "assets/lab_door.png",
+    "width": 1086,
+    "height": 1448,
+    "transparent": true,
+    "notes": "Computer Laboratory door (WAB 213, 214)"
+  },
+  {
+    "file": "washroom_door.png",
+    "group": "doors",
+    "path": "assets/doors/washroom_door.png",
+    "original_path": "assets/washroom_door.png",
+    "width": 1086,
+    "height": 1448,
+    "transparent": true,
+    "notes": "Restroom entrance door (WAB 208, 218)"
+  },
+  {
+    "file": "staffroom_door.png",
+    "group": "doors",
+    "path": "assets/doors/staffroom_door.png",
+    "original_path": "assets/staffroom_door.png",
+    "width": 1086,
+    "height": 1448,
+    "transparent": true,
+    "notes": "Staffroom entrance door (WAB 204, also used for faculty rooms WAB 202, 214, 215)"
+  },
+  {
+    "file": "library_door.png",
+    "group": "doors",
+    "path": "assets/doors/library_door.png",
+    "original_path": "assets/library_door.png",
+    "width": 1139,
+    "height": 1381,
+    "transparent": true,
+    "notes": "Department Library entrance door (WAB 209)"
+  },
+  {
+    "file": "storage_door_locked.png",
+    "group": "doors",
+    "path": "assets/doors/storage_door_locked.png",
+    "original_path": "assets/storage_door_locked.png",
+    "width": 1086,
+    "height": 1448,
+    "transparent": true,
+    "notes": "Locked storage room door (WAB 217)"
+  },
+  {
+    "file": "room_sign_wood.png",
+    "group": "room-sign",
+    "path": "assets/room-sign/room_sign_wood.png",
+    "original_path": "assets/room_sign_wood.png",
+    "width": 1774,
+    "height": 887,
+    "transparent": true,
+    "notes": "Wooden hanging sign plate for room identification"
+  },
+  {
+    "file": "floor_tile_border.png",
+    "group": "floors",
+    "path": "assets/floors/floor_tile_border.png",
+    "original_path": "assets/floor_tile_border.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Outer edge border floor tile"
+  },
+  {
+    "file": "floor_tile_corner.png",
+    "group": "floors",
+    "path": "assets/floors/floor_tile_corner.png",
+    "original_path": "assets/floor_tile_corner.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Border corner floor tile"
+  },
+  {
+    "file": "floor_tile_cream_blue.png",
+    "group": "floors",
+    "path": "assets/floors/floor_tile_cream_blue.png",
+    "original_path": "assets/floor_tile_cream_blue.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Cream tile with blue diamond accent insets"
+  },
+  {
+    "file": "floor_tile_cream_plain.png",
+    "group": "floors",
+    "path": "assets/floors/floor_tile_cream_plain.png",
+    "original_path": "assets/floor_tile_cream_plain.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Plain cream grid floor tile"
+  },
+  {
+    "file": "floor_tile_dark.png",
+    "group": "floors",
+    "path": "assets/floors/floor_tile_dark.png",
+    "original_path": "assets/floor_tile_dark.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Dark contrast accent floor tile"
+  },
+  {
+    "file": "floor_tile_transition.png",
+    "group": "floors",
+    "path": "assets/floors/floor_tile_transition.png",
+    "original_path": "assets/floor_tile_transition.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Threshold / transition floor tile strip"
+  },
+  {
+    "file": "corridor_corner.png",
+    "group": "corridor",
+    "path": "assets/corridor/corridor_corner.png",
+    "original_path": "assets/corridor_corner.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Corridor 90-degree bend turn tile"
+  },
+  {
+    "file": "corridor_dead_end.png",
+    "group": "corridor",
+    "path": "assets/corridor/corridor_dead_end.png",
+    "original_path": "assets/corridor_dead_end.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Corridor dead end terminator tile"
+  },
+  {
+    "file": "corridor_floor_horizontal.png",
+    "group": "corridor",
+    "path": "assets/corridor/corridor_floor_horizontal.png",
+    "original_path": "assets/corridor_floor_horizontal.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Horizontal corridor walkway runner tile"
+  },
+  {
+    "file": "corridor_floor_vertical.png",
+    "group": "corridor",
+    "path": "assets/corridor/corridor_floor_vertical.png",
+    "original_path": "assets/corridor_floor_vertical.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Vertical corridor walkway runner tile"
+  },
+  {
+    "file": "corridor_intersection.png",
+    "group": "corridor",
+    "path": "assets/corridor/corridor_intersection.png",
+    "original_path": "assets/corridor_intersection.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": false,
+    "notes": "Corridor 4-way cross-intersection tile"
+  },
+  {
+    "file": "fire_exit_door.png",
+    "group": "fire-exit",
+    "path": "assets/fire-exit/fire_exit_door.png",
+    "original_path": "assets/fire_exit_door.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Heavy red emergency fire exit exit door"
+  },
+  {
+    "file": "fire_exit_marker.png",
+    "group": "fire-exit",
+    "path": "assets/fire-exit/fire_exit_marker.png",
+    "original_path": "assets/fire_exit_marker.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Floor emergency egress evacuation route marker"
+  },
+  {
+    "file": "fire_exit_sign.png",
+    "group": "fire-exit",
+    "path": "assets/fire-exit/fire_exit_sign.png",
+    "original_path": "assets/fire_exit_sign.png",
+    "width": 1536,
+    "height": 1024,
+    "transparent": true,
+    "notes": "Illuminated green overhead fire exit sign"
+  },
+  {
+    "file": "washroom_male_sign.png",
+    "group": "washroom",
+    "path": "assets/washroom/washroom_male_sign.png",
+    "original_path": "assets/washroom_male_sign.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Men's washroom door sign plaque (WAB 208)"
+  },
+  {
+    "file": "washroom_female_sign.png",
+    "group": "washroom",
+    "path": "assets/washroom/washroom_female_sign.png",
+    "original_path": "assets/washroom_female_sign.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Women's washroom door sign plaque (WAB 218)"
+  },
+  {
+    "file": "washroom_icon.png",
+    "group": "washroom",
+    "path": "assets/washroom/washroom_icon.png",
+    "original_path": "assets/washroom_icon.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Universal restroom icon symbol"
+  },
+  {
+    "file": "bush.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/bush.png",
+    "original_path": "assets/bush.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Standard green foliage bush"
+  },
+  {
+    "file": "bush_flowering.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/bush_flowering.png",
+    "original_path": "assets/bush_flowering.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Flowering decorative shrub"
+  },
+  {
+    "file": "flower_cluster.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/flower_cluster.png",
+    "original_path": "assets/flower_cluster.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Garden flower bed cluster patch"
+  },
+  {
+    "file": "hedge.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/hedge.png",
+    "original_path": "assets/hedge.png",
+    "width": 1774,
+    "height": 887,
+    "transparent": true,
+    "notes": "Trimmed landscape boundary hedge barrier"
+  },
+  {
+    "file": "tree_large.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/tree_large.png",
+    "original_path": "assets/tree_large.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Large campus shade tree canopy"
+  },
+  {
+    "file": "tree_medium.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/tree_medium.png",
+    "original_path": "assets/tree_medium.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Medium ornamental campus tree"
+  },
+  {
+    "file": "tree_small.png",
+    "group": "outdoor",
+    "path": "assets/outdoor/tree_small.png",
+    "original_path": "assets/tree_small.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Small young sapling / patio tree"
+  },
+  {
+    "file": "campus_bench.png",
+    "group": "furniture",
+    "path": "assets/furniture/campus_bench.png",
+    "original_path": "assets/campus_bench.png",
+    "width": 1448,
+    "height": 1086,
+    "transparent": true,
+    "notes": "Corridor wooden rest bench with metal frame"
+  },
+  {
+    "file": "campus_lamp.png",
+    "group": "furniture",
+    "path": "assets/furniture/campus_lamp.png",
+    "original_path": "assets/campus_lamp.png",
+    "width": 971,
+    "height": 1619,
+    "transparent": true,
+    "notes": "Standing campus floor / corridor lamp post"
+  },
+  {
+    "file": "campus_planter.png",
+    "group": "furniture",
+    "path": "assets/furniture/campus_planter.png",
+    "original_path": "assets/campus_planter.png",
+    "width": 1316,
+    "height": 1195,
+    "transparent": true,
+    "notes": "Indoor ceramic decorative potted plant"
+  },
+  {
+    "file": "chair.png",
+    "group": "furniture",
+    "path": "assets/furniture/chair.png",
+    "original_path": "assets/chair.png",
+    "width": 1122,
+    "height": 1402,
+    "transparent": true,
+    "notes": "Individual student / office chair"
+  },
+  {
+    "file": "notice_board.png",
+    "group": "furniture",
+    "path": "assets/furniture/notice_board.png",
+    "original_path": "assets/notice_board.png",
+    "width": 1182,
+    "height": 1330,
+    "transparent": true,
+    "notes": "Wall-mounted department bulletin / notice board"
+  },
+  {
+    "file": "small_table.png",
+    "group": "furniture",
+    "path": "assets/furniture/small_table.png",
+    "original_path": "assets/small_table.png",
+    "width": 1374,
+    "height": 1145,
+    "transparent": true,
+    "notes": "Wooden side / study table"
+  },
+  {
+    "file": "trash_bin.png",
+    "group": "furniture",
+    "path": "assets/furniture/trash_bin.png",
+    "original_path": "assets/trash_bin.png",
+    "width": 1122,
+    "height": 1402,
+    "transparent": true,
+    "notes": "Indoor waste bin receptacle"
+  },
+  {
+    "file": "elevator.png",
+    "group": "stairs-elevator",
+    "path": "assets/stairs-elevator/elevator.png",
+    "original_path": "assets/elevator.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Full elevator exterior wall portal (1254x1254)"
+  },
+  {
+    "file": "elevator_door.png",
+    "group": "stairs-elevator",
+    "path": "assets/stairs-elevator/elevator_door.png",
+    "original_path": "assets/elevator_door.png",
+    "width": 1448,
+    "height": 1086,
+    "transparent": true,
+    "notes": "Elevator sliding doors assembly (1448x1086)"
+  },
+  {
+    "file": "staircase_down.png",
+    "group": "stairs-elevator",
+    "path": "assets/stairs-elevator/staircase_down.png",
+    "original_path": "assets/staircase_down.png",
+    "width": 1402,
+    "height": 1122,
+    "transparent": true,
+    "notes": "Stairwell descending steps view"
+  },
+  {
+    "file": "staircase_frame.png",
+    "group": "stairs-elevator",
+    "path": "assets/stairs-elevator/staircase_frame.png",
+    "original_path": "assets/staircase_frame.png",
+    "width": 1374,
+    "height": 1145,
+    "transparent": true,
+    "notes": "Stairwell architectural outer portal arch"
+  },
+  {
+    "file": "staircase_up.png",
+    "group": "stairs-elevator",
+    "path": "assets/stairs-elevator/staircase_up.png",
+    "original_path": "assets/staircase_up.png",
+    "width": 1402,
+    "height": 1122,
+    "transparent": true,
+    "notes": "Stairwell ascending steps view"
+  },
+  {
+    "file": "boy_main_idle_4dir.png",
+    "group": "character",
+    "path": "assets/character/boy_main_idle_4dir.png",
+    "original_path": "assets/boy_main_idle_4dir.png",
+    "width": 1983,
+    "height": 793,
+    "transparent": true,
+    "notes": "Boy player avatar 4-direction idle sheet (1x4 strip, 1983x793)"
+  },
+  {
+    "file": "boy_main_walk_4dir.png",
+    "group": "character",
+    "path": "assets/character/boy_main_walk_4dir.png",
+    "original_path": "assets/boy_main_walk_4dir.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "notes": "Boy player avatar 4-direction walk cycle sheet (4x4 grid, 1024x1536)"
+  },
+  {
+    "file": "girl_main_idle_4dir.png",
+    "group": "character",
+    "path": "assets/character/girl_main_idle_4dir.png",
+    "original_path": "assets/girl_main_idle_4dir.png",
+    "width": 1983,
+    "height": 793,
+    "transparent": true,
+    "notes": "Girl player avatar 4-direction idle sheet (1x4 strip, 1983x793)"
+  },
+  {
+    "file": "girl_main_walk_4dir.png",
+    "group": "character",
+    "path": "assets/character/girl_main_walk_4dir.png",
+    "original_path": "assets/girl_main_walk_4dir.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "notes": "Girl player avatar 4-direction walk cycle sheet (4x4 grid, 1024x1536)"
+  },
+  {
+    "file": "character_shadow.png",
+    "group": "character",
+    "path": "assets/character/character_shadow.png",
+    "original_path": "assets/character_shadow.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Soft drop shadow ellipse for avatar base"
+  },
+  {
+    "file": "student_male.png",
+    "group": "character",
+    "path": "assets/character/student_male.png",
+    "original_path": "assets/student_male.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "notes": "Full-body male student idle standing portrait with drop shadow (1024x1536)"
+  },
+  {
+    "file": "student_female.png",
+    "group": "character",
+    "path": "assets/character/student_female.png",
+    "original_path": "assets/student_female.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "notes": "Full-body female student idle standing portrait with drop shadow (1024x1536)"
+  },
+  {
+    "file": "destination_marker.png",
+    "group": "navigation-markers",
+    "path": "assets/navigation-markers/destination_marker.png",
+    "original_path": "assets/destination_marker.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Target destination map marker pin"
+  },
+  {
+    "file": "direction_arrow.png",
+    "group": "navigation-markers",
+    "path": "assets/navigation-markers/direction_arrow.png",
+    "original_path": "assets/direction_arrow.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Dynamic path direction guidance arrow"
+  },
+  {
+    "file": "navigation_start_marker.png",
+    "group": "navigation-markers",
+    "path": "assets/navigation-markers/navigation_start_marker.png",
+    "original_path": "assets/navigation_start_marker.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Starting position map marker pin"
+  },
+  {
+    "file": "player_location_marker.png",
+    "group": "navigation-markers",
+    "path": "assets/navigation-markers/player_location_marker.png",
+    "original_path": "assets/player_location_marker.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Current player position beacon marker"
+  },
+  {
+    "file": "ui_button_disabled.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_button_disabled.png",
+    "original_path": "assets/ui_button_disabled.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Button disabled / inactive state (2172x724)"
+  },
+  {
+    "file": "ui_button_hover.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_button_hover.png",
+    "original_path": "assets/ui_button_hover.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Button pointer hover state (2172x724)"
+  },
+  {
+    "file": "ui_button_normal.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_button_normal.png",
+    "original_path": "assets/ui_button_normal.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Button standard idle state (2172x724)"
+  },
+  {
+    "file": "ui_button_selected.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_button_selected.png",
+    "original_path": "assets/ui_button_selected.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Button active / pressed state (2172x724)"
+  },
+  {
+    "file": "ui_dropdown.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_dropdown.png",
+    "original_path": "assets/ui_dropdown.png",
+    "width": 1983,
+    "height": 793,
+    "transparent": true,
+    "notes": "Dropdown select menu background container (1983x793)"
+  },
+  {
+    "file": "ui_panel.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_panel.png",
+    "original_path": "assets/ui_panel.png",
+    "width": 1774,
+    "height": 887,
+    "transparent": true,
+    "notes": "Standard modal / dialogue UI window panel (1774x887)"
+  },
+  {
+    "file": "ui_panel_large.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_panel_large.png",
+    "original_path": "assets/ui_panel_large.png",
+    "width": 1774,
+    "height": 887,
+    "transparent": true,
+    "notes": "Large UI window panel frame (1774x887)"
+  },
+  {
+    "file": "ui_panel_small.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_panel_small.png",
+    "original_path": "assets/ui_panel_small.png",
+    "width": 1774,
+    "height": 887,
+    "transparent": true,
+    "notes": "Compact UI window panel frame (1774x887)"
+  },
+  {
+    "file": "ui_search_bar.png",
+    "group": "ui-panels-buttons",
+    "path": "assets/ui-panels-buttons/ui_search_bar.png",
+    "original_path": "assets/ui_search_bar.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Search input text field container (2172x724)"
+  },
+  {
+    "file": "icon_arrow.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_arrow.png",
+    "original_path": "assets/icon_arrow.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Generic navigation / directional arrow icon"
+  },
+  {
+    "file": "icon_back.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_back.png",
+    "original_path": "assets/icon_back.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Return / go back arrow icon"
+  },
+  {
+    "file": "icon_check.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_check.png",
+    "original_path": "assets/icon_check.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Success / confirmation checkmark icon"
+  },
+  {
+    "file": "icon_close.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_close.png",
+    "original_path": "assets/icon_close.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Dismiss / close window 'X' icon"
+  },
+  {
+    "file": "icon_distance.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_distance.png",
+    "original_path": "assets/icon_distance.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Walking distance ruler icon"
+  },
+  {
+    "file": "icon_info.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_info.png",
+    "original_path": "assets/icon_info.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Information tooltip 'i' icon"
+  },
+  {
+    "file": "icon_location.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_location.png",
+    "original_path": "assets/icon_location.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Location pin symbol icon"
+  },
+  {
+    "file": "icon_lock.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_lock.png",
+    "original_path": "assets/icon_lock.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Locked door / restricted access padlock icon"
+  },
+  {
+    "file": "icon_menu.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_menu.png",
+    "original_path": "assets/icon_menu.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Main navigation hamburger menu icon"
+  },
+  {
+    "file": "icon_navigation.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_navigation.png",
+    "original_path": "assets/icon_navigation.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Compass-style waypoint / navigation icon"
+  },
+  {
+    "file": "icon_warning.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/icon_warning.png",
+    "original_path": "assets/icon_warning.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Hazard / caution exclamation triangle icon"
+  },
+  {
+    "file": "ui_search_icon.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/ui_search_icon.png",
+    "original_path": "assets/ui_search_icon.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Magnifying glass search icon (inconsistent 'ui_' prefix)"
+  },
+  {
+    "file": "ui_dropdown_arrow.png",
+    "group": "ui-icons",
+    "path": "assets/ui-icons/ui_dropdown_arrow.png",
+    "original_path": "assets/ui_dropdown_arrow.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Dropdown indicator arrow / chevron icon"
+  },
+  {
+    "file": "compass.png",
+    "group": "map-controls",
+    "path": "assets/map-controls/compass.png",
+    "original_path": "assets/compass.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "North orientation HUD compass dial"
+  },
+  {
+    "file": "map_recenter.png",
+    "group": "map-controls",
+    "path": "assets/map-controls/map_recenter.png",
+    "original_path": "assets/map_recenter.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Recenter viewport on player icon"
+  },
+  {
+    "file": "map_zoom_in.png",
+    "group": "map-controls",
+    "path": "assets/map-controls/map_zoom_in.png",
+    "original_path": "assets/map_zoom_in.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Map zoom in (+) button control"
+  },
+  {
+    "file": "map_zoom_out.png",
+    "group": "map-controls",
+    "path": "assets/map-controls/map_zoom_out.png",
+    "original_path": "assets/map_zoom_out.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Map zoom out (-) button control"
+  },
+  {
+    "file": "ui_gold_corner.png",
+    "group": "ui-decorative",
+    "path": "assets/ui-decorative/ui_gold_corner.png",
+    "original_path": "assets/ui_gold_corner.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Gold filigree corner accent piece"
+  },
+  {
+    "file": "ui_gold_divider.png",
+    "group": "ui-decorative",
+    "path": "assets/ui-decorative/ui_gold_divider.png",
+    "original_path": "assets/ui_gold_divider.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Horizontal gold dividing bar / separator line"
+  },
+  {
+    "file": "ui_ornament_bottom.png",
+    "group": "ui-decorative",
+    "path": "assets/ui-decorative/ui_ornament_bottom.png",
+    "original_path": "assets/ui_ornament_bottom.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Bottom ornamental header/footer scroll crest (facing down)"
+  },
+  {
+    "file": "ui_ornament_top.png",
+    "group": "ui-decorative",
+    "path": "assets/ui-decorative/ui_ornament_top.png",
+    "original_path": "assets/ui_ornament_top.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Top ornamental header/footer scroll crest (facing up)"
+  },
+  {
+    "file": "ui_scroll_edge.png",
+    "group": "ui-decorative",
+    "path": "assets/ui-decorative/ui_scroll_edge.png",
+    "original_path": "assets/ui_scroll_edge.png",
+    "width": 768,
+    "height": 2048,
+    "transparent": true,
+    "notes": "Parchment / scroll vertical paper edge strip"
+  },
+  {
+    "file": "welcome_background.png",
+    "group": "welcome",
+    "path": "assets/welcome/welcome_background.png",
+    "original_path": "assets/welcome_background.png",
+    "width": 853,
+    "height": 1844,
+    "transparent": false,
+    "notes": "Full vertical mobile splash wallpaper (853x1844, opaque)"
+  },
+  {
+    "file": "welcome_building.png",
+    "group": "welcome",
+    "path": "assets/welcome/welcome_building.png",
+    "original_path": "assets/welcome_building.png",
+    "width": 1536,
+    "height": 1024,
+    "transparent": true,
+    "notes": "Pixel art illustration of JEC CSE academic block exterior"
+  },
+  {
+    "file": "welcome_character_boy.png",
+    "group": "welcome",
+    "path": "assets/welcome/welcome_character_boy.png",
+    "original_path": "assets/welcome_character_boy.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "notes": "Boy student mascot thumbs-up welcome illustration (1024x1536)"
+  },
+  {
+    "file": "welcome_character_girl.png",
+    "group": "welcome",
+    "path": "assets/welcome/welcome_character_girl.png",
+    "original_path": "assets/welcome_character_girl.png",
+    "width": 1024,
+    "height": 1536,
+    "transparent": true,
+    "notes": "Girl student mascot peace-sign welcome illustration (1024x1536)"
+  },
+  {
+    "file": "welcome_logo.png",
+    "group": "welcome",
+    "path": "assets/welcome/welcome_logo.png",
+    "original_path": "assets/welcome_logo.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "College / project title logo crest emblem"
+  },
+  {
+    "file": "arrival_badge.png",
+    "group": "arrival",
+    "path": "assets/arrival/arrival_badge.png",
+    "original_path": "assets/arrival_badge.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Success arrival ribbon achievement badge"
+  },
+  {
+    "file": "arrival_banner.png",
+    "group": "arrival",
+    "path": "assets/arrival/arrival_banner.png",
+    "original_path": "assets/arrival_banner.png",
+    "width": 2172,
+    "height": 724,
+    "transparent": true,
+    "notes": "Ribbon banner header 'You Have Arrived!'"
+  },
+  {
+    "file": "arrival_sparkle.png",
+    "group": "arrival",
+    "path": "assets/arrival/arrival_sparkle.png",
+    "original_path": "assets/arrival_sparkle.png",
+    "width": 1254,
+    "height": 1254,
+    "transparent": true,
+    "notes": "Particle sparkle / star celebration effect"
+  }
+]

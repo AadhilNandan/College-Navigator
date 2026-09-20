@@ -1,0 +1,59 @@
+[
+  {"id":"ENTRANCE","type":"BOUNDARY","name":"Connection to Next Block","floor":1,"x":0,"y":0},
+
+  {"id":"H0","type":"JUNCTION","floor":1,"x":0,"y":1.1},
+  {"id":"H1","type":"JUNCTION","floor":1,"x":0,"y":4.4},
+  {"id":"H2","type":"JUNCTION","floor":1,"x":0,"y":11.3},
+  {"id":"H3","type":"JUNCTION","floor":1,"x":0,"y":18.0},
+  {"id":"H4","type":"JUNCTION","floor":1,"x":0,"y":21.5},
+  {"id":"H5","type":"JUNCTION","floor":1,"x":0,"y":26.0},
+
+  {"id":"W204_DOOR","type":"ROOM_DOOR","room":"WAB204","floor":1,"x":-1.49,"y":0.9},
+  {"id":"W205_DOOR","type":"ROOM_DOOR","room":"WAB205","floor":1,"x":1.49,"y":1.3},
+
+  {"id":"W203_D1","type":"ROOM_DOOR","room":"WAB203","floor":1,"x":-1.49,"y":4.4},
+  {"id":"W203_D2","type":"ROOM_DOOR","room":"WAB203","floor":1,"x":-1.49,"y":11.1},
+  {"id":"W203_D3","type":"ROOM_DOOR","room":"WAB203","floor":1,"x":-1.49,"y":18.0},
+
+  {"id":"W206_DOOR","type":"ROOM_DOOR","room":"WAB206","floor":1,"x":1.49,"y":11.5},
+  {"id":"W207_DOOR","type":"ROOM_DOOR","room":"WAB207","floor":1,"x":1.49,"y":21.5},
+  {"id":"W202_DOOR","type":"ROOM_DOOR","room":"WAB202","floor":1,"x":-1.49,"y":26.0},
+
+  {"id":"R_TOP","type":"JUNCTION","floor":1,"x":0,"y":32.2},
+  {"id":"TL","type":"JUNCTION","floor":1,"x":-11.2,"y":32.2},
+  {"id":"TR","type":"JUNCTION","floor":1,"x":11.3,"y":32.2},
+  {"id":"BL","type":"JUNCTION","floor":1,"x":-11.2,"y":73.1},
+  {"id":"BR","type":"JUNCTION","floor":1,"x":11.3,"y":73.1},
+
+  {"id":"J218","type":"JUNCTION","floor":1,"x":-11.2,"y":32.8},
+  {"id":"JFE_L","type":"JUNCTION","floor":1,"x":-11.2,"y":35.6},
+  {"id":"J217","type":"JUNCTION","floor":1,"x":-11.2,"y":39.5},
+  {"id":"J216","type":"JUNCTION","floor":1,"x":-11.2,"y":42.9},
+  {"id":"J216A","type":"JUNCTION","floor":1,"x":-11.2,"y":60.8},
+  {"id":"J215","type":"JUNCTION","floor":1,"x":-11.2,"y":63.0},
+  {"id":"J214","type":"JUNCTION","floor":1,"x":-11.2,"y":69.9},
+
+  {"id":"J208","type":"JUNCTION","floor":1,"x":11.3,"y":32.8},
+  {"id":"JFE1","type":"JUNCTION","floor":1,"x":11.3,"y":35.6},
+  {"id":"J209","type":"JUNCTION","floor":1,"x":11.3,"y":38.8},
+  {"id":"J210","type":"JUNCTION","floor":1,"x":11.3,"y":45.6},
+  {"id":"J211","type":"JUNCTION","floor":1,"x":11.3,"y":55.8},
+  {"id":"J213","type":"JUNCTION","floor":1,"x":5.0,"y":73.1},
+
+  {"id":"W218_DOOR","type":"ROOM_DOOR","room":"WAB218","floor":1,"x":-12.4,"y":32.8},
+  {"id":"FE_L","type":"FIRE_EXIT","name":"Fire Exit (left)","routable":false,"floor":1,"x":-12.4,"y":35.6},
+  {"id":"W217_DOOR","type":"ROOM_DOOR","room":"WAB217","routable":false,"floor":1,"x":-12.4,"y":39.5},
+  {"id":"W216_DOOR","type":"ROOM_DOOR","room":"WAB216","floor":1,"x":-12.4,"y":42.9},
+  {"id":"W216A_DOOR","type":"ROOM_DOOR","room":"WAB216A","floor":1,"x":-12.4,"y":60.8},
+  {"id":"W215_DOOR","type":"ROOM_DOOR","room":"WAB215","floor":1,"x":-12.4,"y":63.0},
+  {"id":"W214_DOOR","type":"ROOM_DOOR","room":"WAB214","floor":1,"x":-12.4,"y":69.9},
+
+  {"id":"W208_DOOR","type":"ROOM_DOOR","room":"WAB208","floor":1,"x":12.5,"y":32.8},
+  {"id":"FE_1","type":"FIRE_EXIT","name":"Fire Exit 1","routable":false,"floor":1,"x":12.5,"y":35.6},
+  {"id":"W209_DOOR","type":"ROOM_DOOR","room":"WAB209","floor":1,"x":12.5,"y":38.8},
+  {"id":"W210_DOOR","type":"ROOM_DOOR","room":"WAB210","floor":1,"x":12.5,"y":45.6},
+  {"id":"W211_DOOR","type":"ROOM_DOOR","room":"WAB211","floor":1,"x":12.5,"y":55.8},
+  {"id":"W212_DOOR","type":"ROOM_DOOR","room":"WAB212","floor":1,"x":12.5,"y":73.9},
+  {"id":"W213_DOOR","type":"ROOM_DOOR","room":"WAB213","floor":1,"x":5.0,"y":74.3},
+  {"id":"FE_B","type":"FIRE_EXIT","name":"Fire Exit (bottom right)","routable":false,"floor":1,"x":11.2,"y":74.6}
+]

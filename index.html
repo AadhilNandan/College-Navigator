@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CSE Block Navigator — Jyothi Engineering College</title>
+  <meta name="description" content="Level 1 floor navigation for CSE Block (WAB 202-218) at Jyothi Engineering College.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="phone-frame">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <h1 class="header-title">CSE BLOCK NAVIGATOR</h1>
+        <div class="header-subtitle">Level 1 • WAB 202 – 218</div>
+      </div>
+    </header>
+
+    <!-- Error Banner (hidden by default) -->
+    <div id="error-banner" class="error-banner" role="alert" style="display: none;"></div>
+
+    <!-- Loading State -->
+    <div id="loading-state" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading floor map data...</p>
+    </div>
+
+    <!-- Main Content Area -->
+    <main id="app-main" class="app-main" style="display: none;">
+      <!-- Search & Controls Section -->
+      <section class="search-section" aria-label="Room Search">
+        <div class="search-box-wrapper">
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="Search room, lab, faculty, code (e.g. WAB 206)..."
+            autocomplete="off"
+            aria-label="Search rooms or categories"
+          />
+        </div>
+
+        <!-- Autocomplete Dropdown List -->
+        <div id="search-results" class="search-results" role="listbox" style="display: none;"></div>
+
+        <!-- Route Information Card -->
+        <article id="route-card" class="route-card" style="display: none;">
+          <div class="card-header">
+            <div>
+              <h2 id="route-title" class="route-title"></h2>
+              <span id="route-category" class="badge-category"></span>
+            </div>
+            <div class="distance-badge">
+              <span id="route-distance" class="distance-text"></span>
+            </div>
+          </div>
+
+          <div id="route-status" class="route-status"></div>
+
+          <!-- Animation Control Actions -->
+          <div class="route-actions">
+            <button type="button" id="btn-replay" class="action-btn" title="Replay route walk">Replay</button>
+            <button type="button" id="btn-skip" class="action-btn" title="Skip walk to arrival">Skip</button>
+          </div>
+
+          <!-- Multi-Door Selection Chips (e.g. WAB 203) -->
+          <div id="door-chips-container" class="door-chips-container"></div>
+
+          <!-- Collapsible Route Debug Details -->
+          <details id="route-details" class="route-details">
+            <summary class="details-summary">Route details</summary>
+            <div id="route-node-list" class="node-id-list"></div>
+          </details>
+        </article>
+      </section>
+
+      <!-- Map Scrollable Viewport -->
+      <section class="map-section" aria-label="Floor Map">
+        <div class="map-controls-hint">
+          <span>Scroll to explore corridor • Tap doors to navigate</span>
+        </div>
+        <div id="map-container" class="map-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
