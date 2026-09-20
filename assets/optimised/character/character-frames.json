@@ -1,0 +1,92 @@
+{
+  "standingHeight": 256,
+  "atlases": {
+    "boy_walk": {
+      "file": "boy_walk.png",
+      "cellWidth": 138,
+      "cellHeight": 260,
+      "columns": 4,
+      "rows": 4,
+      "directionOrder": ["front", "back", "left", "right"],
+      "framesPerDirection": 4,
+      "pivotX": 69,
+      "anchorY": 257,
+      "directionScales": {
+        "front": 0.72316384,
+        "back": 0.73988439,
+        "left": 0.74853801,
+        "right": 0.74202899
+      },
+      "targetHeight": 256,
+      "sourceFile": "assets/character/boy_main_walk_4dir.png",
+      "sourceFileSize": 1998465
+    },
+    "boy_idle": {
+      "file": "boy_idle.png",
+      "cellWidth": 138,
+      "cellHeight": 260,
+      "columns": 4,
+      "rows": 1,
+      "directionOrder": ["front", "back", "left", "right"],
+      "framesPerDirection": 1,
+      "pivotX": 69,
+      "anchorY": 257,
+      "directionScales": {
+        "front": 0.35955056,
+        "back": 0.36363636,
+        "left": 0.36056338,
+        "right": 0.35854342
+      },
+      "targetHeight": 256,
+      "sourceFile": "assets/character/boy_main_idle_4dir.png",
+      "sourceFileSize": 816851
+    },
+    "girl_walk": {
+      "file": "girl_walk.png",
+      "cellWidth": 168,
+      "cellHeight": 261,
+      "columns": 4,
+      "rows": 4,
+      "directionOrder": ["front", "back", "left", "right"],
+      "framesPerDirection": 4,
+      "pivotX": 84,
+      "anchorY": 258,
+      "directionScales": {
+        "front": 0.67769689,
+        "back": 0.70767104,
+        "left": 0.73881674,
+        "right": 0.74256708
+      },
+      "targetHeight": 256,
+      "sourceFile": "assets/character/girl_main_walk_4dir.png",
+      "sourceFileSize": 2051053
+    },
+    "girl_idle": {
+      "file": "girl_idle.png",
+      "cellWidth": 168,
+      "cellHeight": 261,
+      "columns": 4,
+      "rows": 1,
+      "directionOrder": ["front", "back", "left", "right"],
+      "framesPerDirection": 1,
+      "pivotX": 84,
+      "anchorY": 258,
+      "directionScales": {
+        "front": 0.35020520,
+        "back": 0.34877384,
+        "left": 0.34972678,
+        "right": 0.34972678
+      },
+      "targetHeight": 256,
+      "sourceFile": "assets/character/girl_main_idle_4dir.png",
+      "sourceFileSize": 905314
+    }
+  },
+  "shadow": {
+    "file": "character_shadow.png",
+    "width": 128,
+    "height": 29,
+    "sourceFile": "assets/character/character_shadow.png",
+    "sourceFileSize": 171422
+  }
+}
