@@ -12,6 +12,7 @@
  */
 
 import { AppState, updateNavigation, setMapMode } from "./state.js";
+import { API_BASE } from "./api-config.js";
 import { ScreenManager, SCREENS, OVERLAYS } from "./screen-manager.js";
 import { MovementSystem } from "./movement.js";
 
@@ -217,7 +218,7 @@ export const NavigationService = (function() {
 
     try {
       // Call authoritative Java API: GET /api/route?from=<FROM_NODE>&to=<DEST_DOOR>
-      const response = await fetch(`/api/route?from=${encodeURIComponent(fromNodeId)}&to=${encodeURIComponent(dest.doorId)}`);
+      const response = await fetch(`${API_BASE}/api/route?from=${encodeURIComponent(fromNodeId)}&to=${encodeURIComponent(dest.doorId)}`);
       if (!response.ok) {
         throw new Error(`Routing request failed with HTTP ${response.status}`);
       }

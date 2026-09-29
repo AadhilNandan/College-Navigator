@@ -162,15 +162,24 @@ public class WebServer {
     }
 
     public static void main(String[] args) throws IOException {
+        // Production: Railway injects PORT env var. Local fallback: 8000.
+        String envPort = System.getenv("PORT");
         int port = DEFAULT_PORT;
-        String host = DEFAULT_HOST;
-        if (args.length > 0) {
+        if (envPort != null && !envPort.isBlank()) {
+            try {
+                port = Integer.parseInt(envPort);
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid PORT env var: " + envPort + ", using default " + DEFAULT_PORT);
+            }
+        } else if (args.length > 0) {
             try {
                 port = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
                 System.err.println("Invalid port: " + args[0] + ", using default " + DEFAULT_PORT);
             }
         }
+
+        String host = DEFAULT_HOST;
         if (args.length > 1) {
             host = args[1];
         }

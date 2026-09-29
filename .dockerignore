@@ -1,0 +1,22 @@
+# Don't send frontend/build artifacts to Docker build context
+target/
+node_modules/
+.git/
+.gitignore
+*.md
+*.png
+*.iml
+.idea/
+.vscode/
+scratch/
+tests/
+debug.*
+docs/
+Skills/
+
+# Frontend assets (served by Vercel, not needed in backend container)
+assets/
+js/
+style.css
+app.js
+index.html

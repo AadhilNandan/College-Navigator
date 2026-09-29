@@ -3,8 +3,10 @@
  * Endpoints: /api/rooms, /api/search, /api/route.
  */
 
+import { API_BASE } from "./api-config.js";
+
 export async function fetchRooms() {
-  const res = await fetch("/api/rooms");
+  const res = await fetch(`${API_BASE}/api/rooms`);
   if (!res.ok) {
     throw new Error(`Failed to fetch rooms: ${res.status} ${res.statusText}`);
   }
@@ -15,7 +17,7 @@ export async function searchRooms(query) {
   if (!query || !query.trim()) {
     return [];
   }
-  const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+  const res = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(query)}`);
   if (!res.ok) {
     throw new Error(`Failed to search rooms: ${res.status} ${res.statusText}`);
   }
@@ -26,7 +28,7 @@ export async function fetchRoute(roomId, doorId = null) {
   if (!roomId) {
     throw new Error("roomId is required");
   }
-  let url = `/api/route?to=${encodeURIComponent(roomId)}`;
+  let url = `${API_BASE}/api/route?to=${encodeURIComponent(roomId)}`;
   if (doorId) {
     url += `&door=${encodeURIComponent(doorId)}`;
   }
@@ -38,3 +40,4 @@ export async function fetchRoute(roomId, doorId = null) {
   }
   return data;
 }
+
