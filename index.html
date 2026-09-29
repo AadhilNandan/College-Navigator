@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>window.__T0 = performance.now();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>CSE Block Navigator — Jyothi Engineering College</title>
-  <meta name="description" content="Level 1 floor navigation for CSE Block (WAB 202-218) at Jyothi Engineering College.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Manrope:wght@400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="phone-frame">
-    <!-- Header -->
-    <header class="app-header">
-      <div class="header-content">
-        <h1 class="header-title">CSE BLOCK NAVIGATOR</h1>
-        <div class="header-subtitle">Level 1 • WAB 202 – 218</div>
+    <!-- Persistent Header (Phase 11 Visual Header) -->
+    <header class="app-header" style="display: none;">
+      <div class="header-box">
+        <div class="header-crest-col">
+          <div class="header-crest-frame">
+            <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="header-crest-img">
+          </div>
+        </div>
+        <div class="header-title-col">
+          <h1 class="header-main-title">CSE BLOCK</h1>
+          <div class="header-subtitle-row">
+            <span class="header-gem">✦</span>
+            <span class="header-level-text">LEVEL 1</span>
+            <span class="header-gem">✦</span>
+          </div>
+          <div class="header-motto-row">EXPLORE &bull; FIND &bull; REACH</div>
+        </div>
+        <div class="header-action-col">
+          <button type="button" id="header-settings-btn" class="header-settings-btn" aria-label="Open Settings" title="Settings">
+            <svg class="ui-icon ui-icon-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+          <button type="button" id="header-menu-btn" class="header-menu-btn" aria-label="Open Menu" title="Menu">
+            <img src="assets/ui-icons/icon_menu.png" alt="Menu" style="width: 20px; height: 20px; image-rendering: pixelated; vertical-align: middle;">
+          </button>
+        </div>
       </div>
     </header>
 
-    <!-- Error Banner (hidden by default) -->
+    <!-- Error Banner (Global alert) -->
     <div id="error-banner" class="error-banner" role="alert" style="display: none;"></div>
 
     <!-- Loading State -->
@@ -26,64 +52,1197 @@
       <p>Loading floor map data...</p>
     </div>
 
-    <!-- Main Content Area -->
-    <main id="app-main" class="app-main" style="display: none;">
-      <!-- Search & Controls Section -->
-      <section class="search-section" aria-label="Room Search">
-        <div class="search-box-wrapper">
-          <input
-            type="search"
-            id="search-input"
-            class="search-input"
-            placeholder="Search room, lab, faculty, code (e.g. WAB 206)..."
-            autocomplete="off"
-            aria-label="Search rooms or categories"
-          />
-        </div>
+    <!-- Main Container -->
+    <div id="app-viewport" class="app-viewport" style="display: none;">
+      
+      <!-- PERSISTENT MAP VIEWPORT (always in DOM, survives screen transitions) -->
+      <div id="map-viewport-container" class="map-viewport-container">
+        <div id="map-container" class="map-container">
+          <canvas id="game-canvas"></canvas>
 
-        <!-- Autocomplete Dropdown List -->
-        <div id="search-results" class="search-results" role="listbox" style="display: none;"></div>
-
-        <!-- Route Information Card -->
-        <article id="route-card" class="route-card" style="display: none;">
-          <div class="card-header">
-            <div>
-              <h2 id="route-title" class="route-title"></h2>
-              <span id="route-category" class="badge-category"></span>
+          <!-- Zone Location Badge (top-center) — updated each game frame via R_TOP graph coordinate -->
+          <div id="map-zone-label" class="map-zone-label" aria-live="polite" aria-label="Current zone">
+            <span class="zone-gem" aria-hidden="true">◆</span>
+            <div class="zone-text-group">
+              <span class="zone-title" id="map-zone-title">CSE BLOCK • LEVEL 1</span>
+              <span class="zone-text" id="map-zone-text">NORTH BLOCK • WAB 202–207</span>
             </div>
-            <div class="distance-badge">
-              <span id="route-distance" class="distance-text"></span>
+            <span class="zone-gem" aria-hidden="true">◆</span>
+          </div>
+
+          <!-- Minimap (Bottom-Left 16-Bit Campus Overview) -->
+          <div id="minimap-container" class="minimap-container" aria-label="Level 1 Minimap">
+            <div class="minimap-header">
+              <div class="minimap-header-left">
+                <span class="minimap-title">LEVEL 1</span>
+                <span class="minimap-compass" title="North">▲ N</span>
+              </div>
+              <button type="button" id="btn-minimap-toggle" class="minimap-toggle-btn" aria-label="Hide Minimap" title="Toggle Minimap">
+                <img src="assets/ui-icons/icon_map.png" alt="" class="minimap-toggle-icon">
+                <span id="minimap-toggle-text" class="minimap-toggle-label">HIDE</span>
+              </button>
+            </div>
+            <div class="minimap-body" id="minimap-body">
+              <canvas id="minimap-canvas" width="124" height="176"></canvas>
+              <div class="minimap-legend">
+                <span class="minimap-legend-item"><span class="minimap-dot player-dot"></span>YOU</span>
+                <span class="minimap-legend-item dest-legend" id="minimap-dest-legend" style="display:none;"><span class="minimap-dot dest-dot"></span>DEST</span>
+              </div>
             </div>
           </div>
 
-          <div id="route-status" class="route-status"></div>
-
-          <!-- Animation Control Actions -->
-          <div class="route-actions">
-            <button type="button" id="btn-replay" class="action-btn" title="Replay route walk">Replay</button>
-            <button type="button" id="btn-skip" class="action-btn" title="Skip walk to arrival">Skip</button>
+          <!-- Floating Map HUD Controls (Phase 21 — 16-bit panel treatment) -->
+          <div class="map-hud" aria-label="Map Controls">
+            <div class="hud-panel">
+              <div class="hud-buttons">
+                <button type="button" id="hud-zoom-in" class="hud-btn" title="Zoom In" aria-label="Zoom In">
+                  <img src="assets/map-controls/map_zoom_in.png" alt="Zoom In">
+                </button>
+                <button type="button" id="hud-zoom-out" class="hud-btn" title="Zoom Out" aria-label="Zoom Out">
+                  <img src="assets/map-controls/map_zoom_out.png" alt="Zoom Out">
+                </button>
+                <button type="button" id="hud-overview" class="hud-btn" title="Campus Overview" aria-label="Campus Overview">
+                  <img src="assets/ui-icons/icon_navigation.png" alt="Overview">
+                </button>
+                <button type="button" id="hud-recenter" class="hud-btn" title="Recenter on Player" aria-label="Recenter on Player">
+                  <img src="assets/map-controls/map_recenter.png" alt="Recenter">
+                </button>
+                <button type="button" id="hud-compass" class="hud-btn compass-dial" title="North" aria-label="North indicator">
+                  <img src="assets/map-controls/compass.png" alt="Compass">
+                </button>
+              </div>
+            </div>
           </div>
 
-          <!-- Multi-Door Selection Chips (e.g. WAB 203) -->
-          <div id="door-chips-container" class="door-chips-container"></div>
-
-          <!-- Collapsible Route Debug Details -->
-          <details id="route-details" class="route-details">
-            <summary class="details-summary">Route details</summary>
-            <div id="route-node-list" class="node-id-list"></div>
-          </details>
-        </article>
-      </section>
-
-      <!-- Map Scrollable Viewport -->
-      <section class="map-section" aria-label="Floor Map">
-        <div class="map-controls-hint">
-          <span>Scroll to explore corridor • Tap doors to navigate</span>
+          <!-- Mobile 16-Bit Virtual Joystick / Movement Control (Phase 24) -->
+          <div id="virtual-joystick" class="virtual-joystick" aria-label="Touch Movement Controls">
+            <div class="joystick-base" id="joystick-base">
+              <span class="joystick-dir-indicator dir-up" data-dir="up">▲</span>
+              <span class="joystick-dir-indicator dir-left" data-dir="left">◀</span>
+              <span class="joystick-dir-indicator dir-center">❖</span>
+              <span class="joystick-dir-indicator dir-right" data-dir="right">▶</span>
+              <span class="joystick-dir-indicator dir-down" data-dir="down">▼</span>
+              <div class="joystick-knob" id="joystick-knob">
+                <span class="knob-gem">❖</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="map-container" class="map-container"></div>
+      </div>
+
+      <!-- SCREEN: WELCOME (Phase 9 Visual Implementation) -->
+      <section id="screen-welcome" class="screen screen-welcome active" aria-label="Welcome Screen">
+        <!-- Environmental Scene Layers -->
+        <div class="welcome-scene" aria-hidden="true">
+          <div class="welcome-bg-layer"></div>
+          <img src="assets/welcome/welcome_building.png" alt="" class="welcome-building-layer">
+          <div class="welcome-characters-layer">
+            <img src="assets/welcome/welcome_character_boy.png" alt="Boy Student Avatar" class="welcome-char welcome-char-boy">
+            <img src="assets/welcome/welcome_character_girl.png" alt="Girl Student Avatar" class="welcome-char welcome-char-girl">
+          </div>
+        </div>
+
+        <!-- Top Right Settings Cog Action -->
+        <button type="button" id="btn-welcome-settings" class="welcome-settings-btn" aria-label="Open Settings" title="Settings">
+          <svg class="ui-icon ui-icon-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+
+        <!-- Main Welcome UI Layer -->
+        <div class="welcome-container">
+          <!-- Top Branding / Logo Header -->
+          <div class="welcome-branding">
+            <div class="welcome-logo-wrapper">
+              <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="welcome-logo-img">
+            </div>
+
+            <div class="welcome-title-block">
+              <h1 class="welcome-main-title">
+                <span class="title-word title-college">COLLEGE</span>
+                <span class="title-word title-navigator">NAVIGATOR</span>
+              </h1>
+
+              <!-- RPG Sub-Banner Ribbon -->
+              <div class="welcome-banner-ribbon">
+                <span class="ribbon-gem">❖</span>
+                <span class="ribbon-text">EXPLORE ▪ FIND ▪ REACH</span>
+                <span class="ribbon-gem">❖</span>
+              </div>
+
+              <!-- Tagline -->
+              <div class="welcome-tagline">
+                — YOUR CAMPUS. A SMARTER WAY. —
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Group: CTA Actions + Institutional Footer -->
+          <div class="welcome-bottom-section">
+            <div class="welcome-actions welcome-cta-group">
+              <!-- Primary Command Button -->
+              <button type="button" id="btn-welcome-start" class="welcome-start-btn" aria-label="Start Exploring">
+                <span class="btn-gem">❖</span>
+                <span class="btn-label">START EXPLORING</span>
+                <span class="btn-arrow">›</span>
+                <span class="btn-gem">❖</span>
+              </button>
+
+              <!-- Secondary Action: How to Navigate -->
+              <button type="button" id="btn-welcome-guide" class="welcome-guide-btn" aria-label="How to Navigate">
+                <span class="guide-gem">✦</span>
+                <span class="guide-label">HOW TO NAVIGATE</span>
+                <span class="guide-gem">✦</span>
+              </button>
+            </div>
+
+            <!-- Bottom Institutional Footer Bar -->
+            <footer class="welcome-footer-bar">
+              <div class="footer-motto">
+                <span class="footer-gem">❖</span>
+                <span>CREATING TECHNOLOGY LEADERS OF TOMORROW</span>
+                <span class="footer-gem">❖</span>
+              </div>
+              <div class="footer-estd">ESTD 2002</div>
+            </footer>
+          </div>
+        </div>
       </section>
-    </main>
-  </div>
+
+      <!-- SCREEN: CHARACTER SELECTION (Phase 10 Visual Implementation) -->
+      <section id="screen-character" class="screen screen-character" aria-label="Character Selection" style="display: none;">
+        <!-- Environmental Scene Backdrop (continuity with Welcome) -->
+        <div class="character-scene" aria-hidden="true">
+          <div class="character-bg-layer"></div>
+        </div>
+
+        <!-- Top Left Back Action Button -->
+        <button type="button" class="back-btn character-back-btn" data-back-to="welcome" aria-label="Back to Welcome" title="Back">
+          <svg class="ui-icon ui-icon-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <!-- Main Content Layout Container -->
+        <div class="character-container">
+          <!-- Top College Crest & Title Section -->
+          <div class="character-header-section">
+            <div class="character-logo-wrapper">
+              <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="character-logo-img">
+            </div>
+
+            <!-- Title RPG Panel -->
+            <div class="character-title-panel">
+              <h1 class="character-main-title">CHOOSE YOUR CHARACTER</h1>
+              <div class="character-sub-title">STEP INTO YOUR COLLEGE JOURNEY</div>
+            </div>
+          </div>
+
+          <!-- Character Cards Selection Area -->
+          <div class="character-selection-group" role="radiogroup" aria-label="Student Avatar Selection">
+            <!-- Boy Character Card -->
+            <button type="button" id="btn-char-boy" class="char-card active" aria-pressed="true" data-char="boy">
+              <div class="char-card-corner char-card-corner-tl"></div>
+              <div class="char-card-corner char-card-corner-tr"></div>
+              <div class="char-card-corner char-card-corner-bl"></div>
+              <div class="char-card-corner char-card-corner-br"></div>
+              
+              <div class="char-avatar-presentation">
+                <img src="assets/welcome/welcome_character_boy.png" alt="Boy Student" class="char-portrait-img">
+                <img src="assets/character/character_shadow.png" alt="" class="char-portrait-shadow">
+              </div>
+              <div class="char-card-btn-box">
+                <span class="char-card-btn-label">BOY</span>
+              </div>
+            </button>
+
+            <!-- Girl Character Card -->
+            <button type="button" id="btn-char-girl" class="char-card" aria-pressed="false" data-char="girl">
+              <div class="char-card-corner char-card-corner-tl"></div>
+              <div class="char-card-corner char-card-corner-tr"></div>
+              <div class="char-card-corner char-card-corner-bl"></div>
+              <div class="char-card-corner char-card-corner-br"></div>
+
+              <div class="char-avatar-presentation">
+                <img src="assets/welcome/welcome_character_girl.png" alt="Girl Student" class="char-portrait-img">
+                <img src="assets/character/character_shadow.png" alt="" class="char-portrait-shadow">
+              </div>
+              <div class="char-card-btn-box">
+                <span class="char-card-btn-label">GIRL</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Supporting Note / Hint Box -->
+          <div class="character-hint-panel">
+            <div class="hint-icon-box">
+              <svg class="ui-icon ui-icon-16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <span class="hint-text">You can always change your character later in the settings.</span>
+          </div>
+
+          <!-- Bottom Action Group: Continue CTA + Footer -->
+          <div class="character-bottom-section">
+            <div class="character-confirm-box">
+              <button type="button" id="btn-char-confirm" class="character-continue-btn" aria-label="Continue to Map">
+                <span class="btn-gem">❖</span>
+                <span class="btn-label">CONTINUE</span>
+                <span class="btn-arrow">›</span>
+                <span class="btn-gem">❖</span>
+              </button>
+            </div>
+
+            <!-- Bottom Institutional Footer Bar -->
+            <footer class="character-footer-bar">
+              <div class="footer-motto">
+                <span class="footer-gem">❖</span>
+                <span>CREATING TECHNOLOGY LEADERS OF TOMORROW</span>
+                <span class="footer-gem">❖</span>
+              </div>
+              <div class="footer-estd">ESTD 2002</div>
+            </footer>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: MAP (HUD & Navigation Mode Panel overlay) -->
+      <section id="screen-map" class="screen screen-map" aria-label="Interactive Map" style="display: none;">
+        <!-- Top Map Toolbar -->
+        <div class="map-top-bar">
+          <div class="camera-mode-box">
+            <button type="button" id="btn-camera-toggle" class="toggle-btn active" aria-pressed="true">Overview / Follow</button>
+          </div>
+          <div class="map-controls-hint">
+            <span>WASD / Arrow keys to walk • Tap doors to navigate</span>
+          </div>
+        </div>
+
+        <!-- Floating Navigation Mode Card (Visible in 'navigation' mapMode) -->
+        <div id="nav-mode-panel" class="nav-mode-panel" style="display: none;">
+          <article id="route-card" class="route-card">
+            <div class="card-header">
+              <div>
+                <h2 id="route-title" class="route-title"></h2>
+                <span id="route-category" class="badge-category"></span>
+              </div>
+              <div class="distance-badge">
+                <img src="assets/ui-icons/icon_distance.png" alt="" class="distance-badge-icon" style="width: 14px; height: 14px; margin-right: 4px; vertical-align: middle; image-rendering: pixelated;">
+                <span id="route-distance" class="distance-text"></span>
+              </div>
+            </div>
+
+            <div id="route-status" class="route-status"></div>
+
+            <!-- Route Actions -->
+            <div class="route-actions">
+              <button type="button" id="btn-toggle-mode" class="action-btn mode-btn" title="Toggle Simulate or Manual Movement"><span id="mode-btn-icon">🚶</span> <span id="mode-btn-label">Simulate</span></button>
+              <button type="button" id="btn-cancel-route" class="action-btn cancel-btn" title="Cancel route"><img src="assets/ui-icons/icon_close.png" alt="" style="width: 12px; height: 12px; margin-right: 4px; vertical-align: middle; image-rendering: pixelated;">Cancel</button>
+              <button type="button" id="btn-replay" class="action-btn" title="Replay route walk">Replay</button>
+              <button type="button" id="btn-skip" class="action-btn" title="Skip walk to arrival">Skip</button>
+            </div>
+
+            <!-- Multi-Door Selection Chips (e.g. WAB 203) -->
+            <div id="door-chips-container" class="door-chips-container"></div>
+
+            <!-- Collapsible Route Details -->
+            <details id="route-details" class="route-details">
+              <summary class="details-summary">Route details</summary>
+              <div id="route-node-list" class="node-id-list"></div>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <!-- SCREEN: SEARCH (Phase 13 Destination Directory & Selection - Final Visual Redesign) -->
+      <section id="screen-search" class="screen screen-search" aria-label="Search Destinations" style="display: none;">
+        <!-- Environmental Scene Backdrop (Campus scenery matching Welcome & Character Select) -->
+        <div class="search-scene" aria-hidden="true">
+          <div class="search-bg-layer"></div>
+        </div>
+
+        <div class="search-screen-container">
+          <!-- Top Architectural Header Panel with Crest, Title, and Back Button -->
+          <header class="search-header-panel">
+            <div class="search-panel-corner corner-tl"></div>
+            <div class="search-panel-corner corner-tr"></div>
+            <div class="search-panel-corner corner-bl"></div>
+            <div class="search-panel-corner corner-br"></div>
+
+            <button type="button" id="btn-search-back" class="search-back-btn back-btn" data-back-to="map" aria-label="Back to Map" title="Back">
+              <svg class="search-back-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+
+            <div class="search-header-center">
+              <div class="search-crest-box">
+                <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="search-crest-img">
+              </div>
+              <div class="search-kicker">
+                <span class="kicker-gem">◆</span>
+                <span class="kicker-text">CSE BLOCK • LEVEL 1</span>
+                <span class="kicker-gem">◆</span>
+              </div>
+              <h1 class="search-main-heading">DESTINATION SEARCH</h1>
+              <div class="search-ribbon-sub">
+                <span class="ribbon-gem">❖</span>
+                <span class="ribbon-text">EXPLORE • FIND • REACH</span>
+                <span class="ribbon-gem">❖</span>
+              </div>
+            </div>
+
+            <div class="search-header-spacer" aria-hidden="true"></div>
+          </header>
+
+          <!-- Waypoint Route Planner: FROM (Origin) & TO (Destination) Selection -->
+          <div class="search-input-section">
+            <div class="route-waypoints-card">
+              <!-- FROM Field -->
+              <div class="waypoint-row waypoint-from">
+                <div class="waypoint-badge from-badge">FROM</div>
+                <div class="waypoint-field-wrapper" id="route-from-trigger" role="button" tabindex="0" aria-label="Select Start Location" aria-haspopup="dialog">
+                  <span class="waypoint-glyph" aria-hidden="true">📍</span>
+                  <span id="route-from-label" class="waypoint-label-text">📍 Current Location</span>
+                  <span class="waypoint-chevron">▼</span>
+                  <select id="route-from-select" class="waypoint-select" aria-label="Select Start Location (From)" style="display: none;">
+                    <option value="CURRENT_POS">📍 Current Location</option>
+                    <option value="ENTRANCE">🚪 Main Entrance (Level 1)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Waypoints Connector Line & Swap Button -->
+              <div class="waypoint-divider">
+                <div class="waypoint-track-line"></div>
+                <button type="button" id="btn-swap-waypoints" class="waypoint-swap-btn" title="Swap Start and Destination" aria-label="Swap Start and Destination">
+                  <span class="swap-icon">⇅</span>
+                </button>
+              </div>
+
+              <!-- TO Field (Destination Search Input) -->
+              <div class="waypoint-row waypoint-to">
+                <div class="waypoint-badge to-badge">TO</div>
+                <div class="search-box-wrapper">
+                  <span class="search-box-icon" aria-hidden="true">
+                    <img src="assets/ui-icons/ui_search_icon.png" alt="" class="search-icon-img">
+                  </span>
+                  <input
+                    type="search"
+                    id="search-input"
+                    class="search-input ui-input"
+                    placeholder="Search destination room (e.g. WAB 209)..."
+                    autocomplete="off"
+                    aria-label="Search rooms or categories"
+                  />
+                  <button type="button" id="btn-search-clear" class="search-clear-btn" aria-label="Clear search" style="display: none;"><img src="assets/ui-icons/icon_close.png" alt="Clear" style="width: 12px; height: 12px; image-rendering: pixelated;"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Chips Row (authoritative categories from rooms.json) -->
+          <nav class="search-filter-section" role="toolbar" aria-label="Filter destinations by category">
+            <div class="search-filter-chips">
+              <button type="button" class="filter-chip active" data-filter="all">ALL</button>
+              <button type="button" class="filter-chip" data-filter="CLASSROOM">CLASSROOMS</button>
+              <button type="button" class="filter-chip" data-filter="LABORATORY">LABS</button>
+              <button type="button" class="filter-chip" data-filter="FACULTY">FACULTY</button>
+              <button type="button" class="filter-chip" data-filter="STAFFROOM">STAFFROOM</button>
+              <button type="button" class="filter-chip" data-filter="SEMINAR_HALL">SEMINAR HALL</button>
+              <button type="button" class="filter-chip" data-filter="LIBRARY">LIBRARY</button>
+              <button type="button" class="filter-chip" data-filter="FACILITY">WASHROOMS</button>
+            </div>
+          </nav>
+
+          <!-- Main Architectural Ivory Container Panel -->
+          <main class="search-results-panel">
+            <div class="search-panel-corner corner-tl"></div>
+            <div class="search-panel-corner corner-tr"></div>
+            <div class="search-panel-corner corner-bl"></div>
+            <div class="search-panel-corner corner-br"></div>
+
+            <div class="search-count-header-row">
+              <span id="search-count-label" class="search-count-text">ALL DESTINATIONS (17)</span>
+              <div class="search-sort-pill" id="btn-search-sort" role="button" tabindex="0" aria-label="Toggle sort order A to Z or Z to A">
+                <span class="sort-text" id="search-sort-text">A-Z</span>
+                <span class="sort-arrow"><img src="assets/ui-icons/ui_dropdown_arrow.png" alt="Sort" class="sort-dropdown-arrow" style="width: 9px; height: 9px; vertical-align: middle; image-rendering: pixelated;"></span>
+              </div>
+            </div>
+
+            <div class="search-panel-divider"></div>
+
+            <!-- Destination Cards List -->
+            <div id="search-results" class="search-results-container" role="listbox" aria-label="Destinations"></div>
+
+            <!-- Static Notice Alert for WAB 217 -->
+            <div id="search-restricted-alert" class="search-restricted-notice">
+              <div class="notice-icon-box">
+                <span class="notice-i-icon"><img src="assets/ui-icons/icon_lock.png" alt="Restricted" style="width: 14px; height: 14px; vertical-align: middle; image-rendering: pixelated;"></span>
+              </div>
+              <div class="notice-text">
+                WAB 217 is a restricted storage room and is not available for navigation.
+              </div>
+            </div>
+          </main>
+
+          <!-- Floating Selected Destination Banner (for quick action: Simulate & Manual Movement) -->
+          <div id="search-selected-banner" class="search-selected-banner" style="display: none;">
+            <div class="banner-inner">
+              <div class="banner-dest-info">
+                <div class="banner-route-preview">
+                  <span id="banner-from-label" class="banner-from-pill">📍 Current Location</span>
+                  <span class="banner-arrow-glyph">➔</span>
+                  <div class="banner-dest-badge">
+                    <span class="banner-gem">❖</span>
+                    <span id="banner-dest-code" class="banner-code-text">WAB 209</span>
+                  </div>
+                </div>
+                <div id="banner-dest-name" class="banner-name-text">CSE Library</div>
+              </div>
+              <div class="banner-actions-group">
+                <button type="button" id="btn-banner-simulate" class="banner-action-btn btn-simulate" aria-label="Simulate Route Walk" title="Character walks the specified path automatically">
+                  <span class="btn-icon">🚶</span>
+                  <span class="btn-text">SIMULATE</span>
+                </button>
+                <button type="button" id="btn-banner-view-map" class="banner-action-btn btn-manual" aria-label="Manual Movement Navigation" title="Path is highlighted on floor, move character using joystick">
+                  <span class="btn-icon">🕹️</span>
+                  <span class="btn-text">MANUAL</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Bottom Sheet: Origin / FROM Selector (Requirement 6) -->
+        <div id="from-sheet-backdrop" class="from-sheet-backdrop" style="display: none;" aria-hidden="true"></div>
+        <div id="from-bottom-sheet" class="from-bottom-sheet" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="from-sheet-title">
+          <div class="from-sheet-handle-bar">
+            <div class="from-sheet-handle"></div>
+          </div>
+          <div class="from-sheet-header">
+            <div class="from-sheet-title-group">
+              <span class="from-sheet-gem">❖</span>
+              <h2 id="from-sheet-title" class="from-sheet-title">SELECT STARTING LOCATION</h2>
+              <span class="from-sheet-gem">❖</span>
+            </div>
+            <button type="button" id="btn-close-from-sheet" class="from-sheet-close-btn" aria-label="Close">
+              <img src="assets/ui-icons/icon_close.png" alt="Close" style="width: 14px; height: 14px; image-rendering: pixelated;">
+            </button>
+          </div>
+          <div class="from-sheet-content" id="from-sheet-options" role="radiogroup">
+            <!-- Populated dynamically: Special origins + Categorized room items -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: MENU (Phase 17 Final Visual Implementation) -->
+      <section id="screen-menu" class="screen screen-menu" aria-label="Menu Command Center" style="display: none;">
+        <!-- Environmental Scene Backdrop (continuity with Welcome & Character Selection) -->
+        <div class="menu-scene" aria-hidden="true">
+          <div class="menu-bg-layer"></div>
+        </div>
+
+        <!-- Top Left Back Action Button -->
+        <button type="button" id="btn-menu-back" class="menu-back-btn back-btn" data-back-to="map" aria-label="Return to Map" title="Back">
+          <svg class="ui-icon ui-icon-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <!-- Main Layout Container -->
+        <div class="menu-container">
+          <!-- Top College Crest & Title Section -->
+          <div class="menu-header-section">
+            <div class="menu-logo-wrapper">
+              <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="menu-logo-img">
+            </div>
+
+            <div class="menu-title-block">
+              <h1 class="menu-main-title">
+                <span class="title-word title-college">COLLEGE</span>
+                <span class="title-word title-navigator">NAVIGATOR</span>
+              </h1>
+
+              <!-- RPG Sub-Banner Ribbon -->
+              <div class="menu-banner-ribbon">
+                <span class="ribbon-gem">❖</span>
+                <span class="ribbon-text">EXPLORE ▪ FIND ▪ REACH</span>
+                <span class="ribbon-gem">❖</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Central Architectural Command Panel -->
+          <div class="menu-command-panel">
+            <div class="menu-card-corner menu-card-corner-tl"></div>
+            <div class="menu-card-corner menu-card-corner-tr"></div>
+            <div class="menu-card-corner menu-card-corner-bl"></div>
+            <div class="menu-card-corner menu-card-corner-br"></div>
+
+            <div class="menu-panel-heading-row">
+              <span class="heading-gem">❖</span>
+              <h2 class="menu-panel-title">MENU</h2>
+              <span class="heading-gem">❖</span>
+            </div>
+            <div class="menu-panel-tagline">YOUR CAMPUS. A SMARTER WAY.</div>
+
+            <!-- Stacked Commands -->
+            <div class="menu-commands-list" role="menu">
+              <!-- 1. RESUME TO MAP (Primary Action) -->
+              <button type="button" id="menu-btn-resume" class="menu-cmd-btn cmd-primary" role="menuitem" aria-label="Resume to Map">
+                <span class="cmd-icon-box">
+                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                    <line x1="8" y1="2" x2="8" y2="18"></line>
+                    <line x1="16" y1="6" x2="16" y2="22"></line>
+                  </svg>
+                </span>
+                <span class="cmd-label">RESUME TO MAP</span>
+                <span class="cmd-arrow">›</span>
+              </button>
+
+              <!-- 2. DESTINATION SEARCH -->
+              <button type="button" id="menu-btn-search" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="Destination Search">
+                <span class="cmd-icon-box">
+                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </span>
+                <span class="cmd-label">DESTINATION SEARCH</span>
+                <span class="cmd-arrow">›</span>
+              </button>
+
+              <!-- 3. CHARACTER -->
+              <button type="button" id="menu-btn-character" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="Character Selection">
+                <span class="cmd-icon-box">
+                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2"></path>
+                  </svg>
+                </span>
+                <span class="cmd-label">CHARACTER</span>
+                <span class="cmd-arrow">›</span>
+              </button>
+
+              <!-- 4. SETTINGS -->
+              <button type="button" id="menu-btn-settings" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="Settings">
+                <span class="cmd-icon-box">
+                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </span>
+                <span class="cmd-label">SETTINGS</span>
+                <span class="cmd-arrow">›</span>
+              </button>
+
+              <!-- 5. HOW TO NAVIGATE -->
+              <button type="button" id="menu-btn-help" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="How to Navigate">
+                <span class="cmd-icon-box">
+                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  </svg>
+                </span>
+                <span class="cmd-label">HOW TO NAVIGATE</span>
+                <span class="cmd-arrow">›</span>
+              </button>
+
+              <!-- 6. ABOUT -->
+              <button type="button" id="menu-btn-about" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="About College Navigator">
+                <span class="cmd-icon-box">
+                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </span>
+                <span class="cmd-label">ABOUT</span>
+                <span class="cmd-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Institutional Footer Bar -->
+          <footer class="menu-footer-bar">
+            <div class="footer-motto">
+              <span class="footer-gem">❖</span>
+              <span>CREATING TECHNOLOGY LEADERS OF TOMORROW</span>
+              <span class="footer-gem">❖</span>
+            </div>
+            <div class="footer-estd">ESTD 2002</div>
+          </footer>
+        </div>
+      </section>
+
+      <!-- SCREEN: SETTINGS (Phase 18 Final Visual Implementation) -->
+      <section id="screen-settings" class="screen screen-settings" aria-label="Application Settings" style="display: none;">
+        <!-- Environmental Scene Backdrop (continuity with Welcome, Character Select, Map, Search, Menu) -->
+        <div class="settings-scene" aria-hidden="true">
+          <div class="settings-bg-layer"></div>
+        </div>
+
+        <div class="settings-screen-container">
+          <!-- Top Architectural Header Panel with Crest, Title, and Back Button -->
+          <header class="settings-header-panel">
+            <div class="settings-panel-corner corner-tl"></div>
+            <div class="settings-panel-corner corner-tr"></div>
+            <div class="settings-panel-corner corner-bl"></div>
+            <div class="settings-panel-corner corner-br"></div>
+
+            <button type="button" id="btn-settings-back" class="settings-back-btn back-btn" data-back-to="menu" aria-label="Return to Previous Screen" title="Back">
+              <svg class="settings-back-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+            </button>
+
+            <div class="settings-header-center">
+              <div class="settings-crest-box">
+                <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="settings-crest-img">
+              </div>
+              <div class="settings-kicker">
+                <span class="kicker-gem">◆</span>
+                <span class="kicker-text">CSE BLOCK • LEVEL 1</span>
+                <span class="kicker-gem">◆</span>
+              </div>
+              <h1 class="settings-main-heading">SETTINGS</h1>
+              <div class="settings-ribbon-sub">
+                <span class="ribbon-gem">❖</span>
+                <span class="ribbon-text">EXPLORE • FIND • REACH</span>
+                <span class="ribbon-gem">❖</span>
+              </div>
+            </div>
+
+            <div class="settings-header-spacer" aria-hidden="true"></div>
+          </header>
+
+          <!-- Central Architectural Settings Panel -->
+          <main class="settings-command-panel">
+            <div class="settings-panel-corner corner-tl"></div>
+            <div class="settings-panel-corner corner-tr"></div>
+            <div class="settings-panel-corner corner-bl"></div>
+            <div class="settings-panel-corner corner-br"></div>
+
+            <div class="settings-panel-tagline">PERSONALIZE YOUR NAVIGATION EXPERIENCE</div>
+
+            <!-- Settings Cards Stack -->
+            <div class="settings-cards-list">
+              <!-- 1. Sound Effects -->
+              <div class="settings-card">
+                <div class="settings-card-inner">
+                  <div class="settings-thumb-box thumb-sound">
+                    <svg viewBox="0 0 32 32" class="settings-thumb-svg" fill="none">
+                      <!-- Speaker / Audio Horn Pixel Icon -->
+                      <path d="M6 11h6l8-6v22l-8-6H6a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z" fill="#E5B85C" stroke="#0E1B2D" stroke-width="2"/>
+                      <path d="M24 10c2 2 2 10 0 12" stroke="#0E1B2D" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M28 7c4 4 4 14 0 18" stroke="#0E1B2D" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="settings-card-content">
+                    <h3 class="settings-card-title">SOUND EFFECTS</h3>
+                    <p class="settings-card-desc">Play interface and interaction sounds during navigation.</p>
+                  </div>
+                  <div class="settings-card-action">
+                    <button type="button" id="setting-sound-toggle" class="rpg-toggle is-on" role="switch" aria-checked="true" aria-label="Toggle Sound Effects">
+                      <span class="toggle-state-text">ON</span>
+                      <span class="toggle-slider-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Background Music -->
+              <div class="settings-card">
+                <div class="settings-card-inner">
+                  <div class="settings-thumb-box thumb-music">
+                    <svg viewBox="0 0 32 32" class="settings-thumb-svg" fill="none">
+                      <!-- Musical Notes Pixel Icon -->
+                      <path d="M9 19a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm12-4a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" fill="#E5B85C" stroke="#0E1B2D" stroke-width="2"/>
+                      <path d="M12 21V7l12-3v14" stroke="#0E1B2D" stroke-width="2" stroke-linecap="square"/>
+                      <path d="M12 7l12-3" stroke="#0E1B2D" stroke-width="2"/>
+                    </svg>
+                  </div>
+                  <div class="settings-card-content">
+                    <h3 class="settings-card-title">BACKGROUND MUSIC</h3>
+                    <p class="settings-card-desc">Play background music while exploring the campus.</p>
+                  </div>
+                  <div class="settings-card-action">
+                    <button type="button" id="setting-music-toggle" class="rpg-toggle is-on" role="switch" aria-checked="true" aria-label="Toggle Background Music">
+                      <span class="toggle-state-text">ON</span>
+                      <span class="toggle-slider-knob"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Navigation Tutorial -->
+              <div class="settings-card">
+                <div class="settings-card-inner">
+                  <div class="settings-thumb-box thumb-tutorial">
+                    <svg viewBox="0 0 32 32" class="settings-thumb-svg" fill="none">
+                      <!-- Open Book Pixel Icon -->
+                      <path d="M4 6c4-1 9 0 12 3 3-3 8-4 12-3v18c-4-1-9 0-12 3-3-3-8-4-12-3V6z" fill="#FFF7E8" stroke="#0E1B2D" stroke-width="2"/>
+                      <line x1="16" y1="9" x2="16" y2="27" stroke="#0E1B2D" stroke-width="2"/>
+                      <line x1="7" y1="12" x2="13" y2="12" stroke="#5A687A" stroke-width="1.5"/>
+                      <line x1="7" y1="16" x2="13" y2="16" stroke="#5A687A" stroke-width="1.5"/>
+                      <line x1="19" y1="12" x2="25" y2="12" stroke="#5A687A" stroke-width="1.5"/>
+                      <line x1="19" y1="16" x2="25" y2="16" stroke="#5A687A" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="settings-card-content">
+                    <h3 class="settings-card-title">NAVIGATION TUTORIAL</h3>
+                    <p class="settings-card-desc">Replay the tutorial to learn how to navigate around campus.</p>
+                  </div>
+                  <div class="settings-card-action">
+                    <button type="button" id="btn-setting-tutorial" class="settings-action-btn" aria-label="View Navigation Tutorial">VIEW TUTORIAL</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Character -->
+              <div class="settings-card">
+                <div class="settings-card-inner">
+                  <div id="settings-char-thumb" class="settings-thumb-box thumb-char">
+                    <svg viewBox="0 0 32 32" class="settings-thumb-svg" fill="none">
+                      <circle cx="16" cy="11" r="5" fill="#E8B88A" stroke="#0E1B2D" stroke-width="1.5"/>
+                      <path d="M11 9c0-4 10-4 10 0" fill="#203653"/>
+                      <path d="M9 26c0-5 3-7 7-7s7 2 7 7" fill="#00A9E0" stroke="#0E1B2D" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="settings-card-content">
+                    <h3 class="settings-card-title">CHARACTER</h3>
+                    <p class="settings-card-desc">Change your active character.</p>
+                  </div>
+                  <div class="settings-card-action">
+                    <button type="button" id="btn-setting-char" class="settings-action-btn" aria-label="Change Character">CHANGE CHARACTER</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. App Information -->
+              <div class="settings-card">
+                <div class="settings-card-inner">
+                  <div class="settings-thumb-box thumb-info">
+                    <svg viewBox="0 0 32 32" class="settings-thumb-svg" fill="none">
+                      <circle cx="16" cy="16" r="12" fill="#162A46" stroke="#0E1B2D" stroke-width="2"/>
+                      <line x1="16" y1="14" x2="16" y2="22" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                      <circle cx="16" cy="10" r="1.5" fill="#FFFFFF"/>
+                    </svg>
+                  </div>
+                  <div class="settings-card-content">
+                    <h3 class="settings-card-title">APP INFORMATION</h3>
+                    <p class="settings-card-desc">College Navigator<br>CSE Block • Level 1</p>
+                  </div>
+                  <div class="settings-card-action">
+                    <button type="button" id="btn-setting-about" class="settings-action-btn" aria-label="View App Information">VIEW ABOUT</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Notice Banner with Gear Icon -->
+            <div class="settings-notice-box">
+              <div class="notice-gear-box">
+                <svg viewBox="0 0 24 24" class="notice-gear-svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </div>
+              <div class="notice-gear-text">Adjust these settings to customize your College Navigator experience.</div>
+            </div>
+
+            <!-- Panel Institutional Footer -->
+            <footer class="settings-panel-footer">
+              <div class="footer-college-line">
+                <span class="footer-gem">❖</span>
+                <span>JYOTHI ENGINEERING COLLEGE</span>
+                <span class="footer-gem">❖</span>
+              </div>
+              <div class="footer-motto-line">CREATING TECHNOLOGY LEADERS OF TOMORROW</div>
+            </footer>
+          </main>
+        </div>
+      </section>
+
+      <!-- SCREEN: HOW TO NAVIGATE (Phase 19 Final Visual Implementation) -->
+      <section id="screen-help" class="screen screen-help" aria-label="How to Navigate" style="display: none;">
+        <div class="info-screen-container">
+
+          <!-- Background campus scene -->
+          <div class="info-screen-bg" aria-hidden="true">
+            <img src="assets/welcome/welcome_background.png" alt="" class="info-bg-img">
+          </div>
+
+          <!-- Back button only — no duplicated application header -->
+          <button type="button" id="btn-how-back" class="info-back-btn" aria-label="Go back">
+            <img src="assets/icon_back.png" alt="Back" class="info-back-icon">
+          </button>
+
+          <!-- Central architectural content panel -->
+          <div class="info-content-panel htn-panel" role="main">
+            <!-- Stepped pixel corners -->
+            <div class="info-corner info-corner-tl" aria-hidden="true"></div>
+            <div class="info-corner info-corner-tr" aria-hidden="true"></div>
+            <div class="info-corner info-corner-bl" aria-hidden="true"></div>
+            <div class="info-corner info-corner-br" aria-hidden="true"></div>
+
+            <!-- Panel heading -->
+            <div class="info-panel-heading-row">
+              <span class="info-panel-gem" aria-hidden="true">❖</span>
+              <h1 class="info-panel-title">HOW TO NAVIGATE</h1>
+              <span class="info-panel-gem" aria-hidden="true">❖</span>
+            </div>
+            <p class="info-panel-subtitle">A QUICK GUIDE TO USING COLLEGE NAVIGATOR</p>
+            <div class="info-panel-gold-rule" aria-hidden="true"></div>
+
+            <!-- Scrollable tutorial cards -->
+            <div class="htn-cards-list" role="list">
+
+              <!-- Step 1: Explore the Map -->
+              <article class="htn-card" role="listitem">
+                <div class="htn-step-badge" aria-label="Step 1">1</div>
+                <div class="htn-card-illustration" aria-hidden="true">
+                  <!-- Pixel map with location pin illustration -->
+                  <svg viewBox="0 0 48 48" class="htn-illus-svg" fill="none">
+                    <rect x="4" y="10" width="40" height="30" rx="2" fill="#D9C8A8" stroke="#0E1B2D" stroke-width="2"/>
+                    <polyline points="4,14 16,22 28,14 40,22" stroke="#4A8C5C" stroke-width="1.5" fill="none"/>
+                    <polyline points="4,24 16,32 28,24 40,32" stroke="#7BB87D" stroke-width="1.2" fill="none"/>
+                    <line x1="16" y1="10" x2="16" y2="40" stroke="#A9792C" stroke-width="1" stroke-dasharray="3,2"/>
+                    <line x1="28" y1="10" x2="28" y2="40" stroke="#A9792C" stroke-width="1" stroke-dasharray="3,2"/>
+                    <circle cx="33" cy="17" r="4" fill="#D6350A" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <line x1="33" y1="21" x2="33" y2="28" stroke="#D6350A" stroke-width="2"/>
+                    <circle cx="33" cy="17" r="1.5" fill="#FFF7E8"/>
+                  </svg>
+                </div>
+                <div class="htn-card-body">
+                  <h2 class="htn-card-title">EXPLORE THE MAP</h2>
+                  <p class="htn-card-desc">Move around the CSE Block Level 1 map freely using the on-screen controls. Explore the campus and familiarize yourself with the area.</p>
+                </div>
+              </article>
+
+              <!-- Step 2: Find a Destination -->
+              <article class="htn-card" role="listitem">
+                <div class="htn-step-badge" aria-label="Step 2">2</div>
+                <div class="htn-card-illustration" aria-hidden="true">
+                  <!-- Pixel search / magnifier illustration -->
+                  <svg viewBox="0 0 48 48" class="htn-illus-svg" fill="none">
+                    <circle cx="21" cy="21" r="13" fill="#D9C8A8" stroke="#0E1B2D" stroke-width="2.5"/>
+                    <circle cx="21" cy="21" r="8" fill="#FFF7E8" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <line x1="30" y1="30" x2="42" y2="42" stroke="#0E1B2D" stroke-width="3.5" stroke-linecap="round"/>
+                    <line x1="38" y1="38" x2="44" y2="44" stroke="#A9792C" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="htn-card-body">
+                  <h2 class="htn-card-title">FIND A DESTINATION</h2>
+                  <p class="htn-card-desc">Open Destination Search to browse rooms and facilities. Use the search bar or category filters to find your destination.</p>
+                </div>
+              </article>
+
+              <!-- Step 3: Select a Destination -->
+              <article class="htn-card" role="listitem">
+                <div class="htn-step-badge" aria-label="Step 3">3</div>
+                <div class="htn-card-illustration" aria-hidden="true">
+                  <!-- Pixel room card / plaque illustration -->
+                  <svg viewBox="0 0 48 48" class="htn-illus-svg" fill="none">
+                    <rect x="4" y="12" width="40" height="24" rx="2" fill="#FFF7E8" stroke="#0E1B2D" stroke-width="2"/>
+                    <rect x="8" y="18" width="18" height="10" rx="1" fill="#162A46" stroke="#A9792C" stroke-width="1.2"/>
+                    <text x="10" y="26" font-family="monospace" font-size="6" fill="#D6A84F">WAB 209</text>
+                    <rect x="30" y="20" width="10" height="4" rx="1" fill="#D6A84F" stroke="none"/>
+                    <polyline points="30,22 38,22 34,26" stroke="#0E1B2D" stroke-width="1.2" fill="none"/>
+                    <line x1="8" y1="14" x2="20" y2="14" stroke="#D9C8A8" stroke-width="1.5"/>
+                    <line x1="8" y1="33" x2="20" y2="33" stroke="#D9C8A8" stroke-width="1.5"/>
+                  </svg>
+                </div>
+                <div class="htn-card-body">
+                  <h2 class="htn-card-title">SELECT A DESTINATION</h2>
+                  <p class="htn-card-desc">Tap on a destination to select it. The selected destination will be saved and shown as your target on the map.</p>
+                </div>
+              </article>
+
+              <!-- Step 4: Navigate Manually -->
+              <article class="htn-card" role="listitem">
+                <div class="htn-step-badge" aria-label="Step 4">4</div>
+                <div class="htn-card-illustration" aria-hidden="true">
+                  <!-- Pixel walking student + arrows illustration -->
+                  <svg viewBox="0 0 48 48" class="htn-illus-svg" fill="none">
+                    <!-- Student figure -->
+                    <circle cx="14" cy="12" r="5" fill="#E8B88A" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <path d="M9 10c0-4 10-4 10 0" fill="#203653"/>
+                    <path d="M9 30c0-6 3-8 5-8h0c2 0 5 2 5 8" fill="#E8792D" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <line x1="14" y1="22" x2="11" y2="30" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <line x1="14" y1="22" x2="17" y2="30" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <!-- Direction chevrons -->
+                    <polyline points="26,20 32,24 26,28" stroke="#D6A84F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                    <polyline points="32,20 38,24 32,28" stroke="#D6A84F" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                    <polyline points="38,20 44,24 38,28" stroke="#D6A84F" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+                  </svg>
+                </div>
+                <div class="htn-card-body">
+                  <h2 class="htn-card-title">NAVIGATE MANUALLY</h2>
+                  <p class="htn-card-desc">Move your character towards the destination using the on-screen controls. Follow the map and landmarks to reach your destination.</p>
+                </div>
+              </article>
+
+              <!-- Step 5: Reach Your Destination -->
+              <article class="htn-card" role="listitem">
+                <div class="htn-step-badge" aria-label="Step 5">5</div>
+                <div class="htn-card-illustration" aria-hidden="true">
+                  <!-- Pixel room door with room plaque illustration -->
+                  <svg viewBox="0 0 48 48" class="htn-illus-svg" fill="none">
+                    <!-- Room nameplate at top -->
+                    <rect x="8" y="4" width="32" height="10" rx="1" fill="#162A46" stroke="#A9792C" stroke-width="1.2"/>
+                    <text x="10" y="12" font-family="monospace" font-size="5.5" fill="#D6A84F">WAB 209</text>
+                    <!-- Door frame -->
+                    <rect x="14" y="14" width="20" height="28" rx="1" fill="#A07040" stroke="#0E1B2D" stroke-width="2"/>
+                    <rect x="16" y="16" width="16" height="24" rx="1" fill="#C08848"/>
+                    <!-- Door handle -->
+                    <circle cx="28" cy="29" r="2" fill="#D6A84F" stroke="#0E1B2D" stroke-width="1"/>
+                    <!-- Potted plants flanking door -->
+                    <rect x="4" y="36" width="8" height="6" rx="1" fill="#4A8C5C" stroke="#0E1B2D" stroke-width="1"/>
+                    <circle cx="8" cy="34" r="4" fill="#2D6A3F"/>
+                    <rect x="36" y="36" width="8" height="6" rx="1" fill="#4A8C5C" stroke="#0E1B2D" stroke-width="1"/>
+                    <circle cx="40" cy="34" r="4" fill="#2D6A3F"/>
+                  </svg>
+                </div>
+                <div class="htn-card-body">
+                  <h2 class="htn-card-title">REACH YOUR DESTINATION</h2>
+                  <p class="htn-card-desc">Arrive at the destination and explore the facility. You have successfully navigated the campus!</p>
+                </div>
+              </article>
+
+            </div><!-- /htn-cards-list -->
+
+            <!-- Tip panel -->
+            <div class="htn-tip-panel" role="note">
+              <div class="htn-tip-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="htn-tip-icon-svg" fill="none">
+                  <circle cx="12" cy="12" r="10" fill="#D6A84F" stroke="#0E1B2D" stroke-width="1.5"/>
+                  <path d="M12 7v1m0 2c0 2.5-3 3.5-3 6h6c0-2.5-3-3.5-3-6z" stroke="#0E1B2D" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="9" y1="18" x2="15" y2="18" stroke="#0E1B2D" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="htn-tip-body">
+                <span class="htn-tip-label">TIP</span>
+                <p class="htn-tip-text">Take your time to explore! College Navigator helps you learn the campus and find your way around easily.</p>
+              </div>
+            </div>
+
+            <!-- Panel institutional footer -->
+            <footer class="info-panel-footer">
+              <div class="info-footer-college-line">
+                <span class="info-footer-gem">❖</span>
+                <span>JYOTHI ENGINEERING COLLEGE</span>
+                <span class="info-footer-gem">❖</span>
+              </div>
+              <div class="info-footer-motto">CREATING TECHNOLOGY LEADERS OF TOMORROW</div>
+            </footer>
+
+          </div><!-- /info-content-panel -->
+        </div><!-- /info-screen-container -->
+      </section>
+
+      <!-- SCREEN: ABOUT (Phase 20 Final Visual Implementation) -->
+      <section id="screen-about" class="screen screen-about" aria-label="About" style="display: none;">
+        <div class="info-screen-container">
+
+          <!-- Background campus scene -->
+          <div class="info-screen-bg" aria-hidden="true">
+            <img src="assets/welcome/welcome_background.png" alt="" class="info-bg-img">
+          </div>
+
+          <!-- Back button only — no duplicated application header -->
+          <button type="button" id="btn-about-back" class="info-back-btn" aria-label="Go back">
+            <img src="assets/icon_back.png" alt="Back" class="info-back-icon">
+          </button>
+
+          <!-- Central architectural content panel -->
+          <div class="info-content-panel about-panel" role="main">
+            <!-- Stepped pixel corners -->
+            <div class="info-corner info-corner-tl" aria-hidden="true"></div>
+            <div class="info-corner info-corner-tr" aria-hidden="true"></div>
+            <div class="info-corner info-corner-bl" aria-hidden="true"></div>
+            <div class="info-corner info-corner-br" aria-hidden="true"></div>
+
+            <!-- Panel heading -->
+            <div class="info-panel-heading-row">
+              <span class="info-panel-gem" aria-hidden="true">❖</span>
+              <h1 class="info-panel-title">ABOUT</h1>
+              <span class="info-panel-gem" aria-hidden="true">❖</span>
+            </div>
+
+            <!-- App identity block -->
+            <p class="about-app-name">COLLEGE NAVIGATOR</p>
+            <p class="about-tagline">EXPLORE &bull; FIND &bull; REACH</p>
+            <div class="info-panel-gold-rule" aria-hidden="true"></div>
+
+            <!-- Scrollable about content -->
+            <div class="about-scroll-area">
+
+              <!-- College crest -->
+              <div class="about-crest-box">
+                <img src="assets/welcome/welcome_logo.png" alt="Jyothi Engineering College" class="about-crest-img">
+              </div>
+
+              <!-- Description panel -->
+              <div class="about-desc-panel">
+                <p class="about-desc-text">College Navigator helps you explore the CSE Block — Level 1 with ease, find your destinations and navigate around the campus.</p>
+                <div class="about-desc-rule" aria-hidden="true"></div>
+                <p class="about-catchphrase">YOUR CAMPUS. A SMARTER WAY.</p>
+              </div>
+
+              <!-- Feature rows -->
+              <div class="about-features-list" role="list">
+
+                <!-- EXPLORE -->
+                <article class="about-feature-card" role="listitem">
+                  <div class="about-feature-illus" aria-hidden="true">
+                    <!-- Pixel map icon -->
+                    <svg viewBox="0 0 48 48" class="about-feature-svg" fill="none">
+                      <rect x="4" y="10" width="40" height="30" rx="2" fill="#D9C8A8" stroke="#0E1B2D" stroke-width="2"/>
+                      <polyline points="4,14 16,22 28,14 40,22" stroke="#4A8C5C" stroke-width="1.5" fill="none"/>
+                      <polyline points="4,24 16,32 28,24 40,32" stroke="#7BB87D" stroke-width="1.2" fill="none"/>
+                      <circle cx="33" cy="17" r="4" fill="#D6350A" stroke="#0E1B2D" stroke-width="1.5"/>
+                      <line x1="33" y1="21" x2="33" y2="28" stroke="#D6350A" stroke-width="2"/>
+                      <circle cx="33" cy="17" r="1.5" fill="#FFF7E8"/>
+                    </svg>
+                  </div>
+                  <div class="about-feature-body">
+                    <h2 class="about-feature-title">EXPLORE</h2>
+                    <p class="about-feature-desc">Discover rooms, labs and facilities across the CSE Block.</p>
+                  </div>
+                </article>
+
+                <!-- FIND -->
+                <article class="about-feature-card" role="listitem">
+                  <div class="about-feature-illus" aria-hidden="true">
+                    <!-- Pixel student / character icon -->
+                    <svg viewBox="0 0 48 48" class="about-feature-svg" fill="none">
+                      <circle cx="24" cy="14" r="7" fill="#E8B88A" stroke="#0E1B2D" stroke-width="2"/>
+                      <path d="M18 12c0-5 12-5 12 0" fill="#203653"/>
+                      <path d="M13 38c0-8 4-10 11-10s11 2 11 10" fill="#E8792D" stroke="#0E1B2D" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="about-feature-body">
+                    <h2 class="about-feature-title">FIND</h2>
+                    <p class="about-feature-desc">Search for your destination quickly using room names or categories.</p>
+                  </div>
+                </article>
+
+                <!-- REACH -->
+                <article class="about-feature-card" role="listitem">
+                  <div class="about-feature-illus" aria-hidden="true">
+                    <!-- Pixel building / destination icon -->
+                    <svg viewBox="0 0 48 48" class="about-feature-svg" fill="none">
+                      <rect x="6" y="24" width="36" height="18" rx="1" fill="#D9C8A8" stroke="#0E1B2D" stroke-width="2"/>
+                      <rect x="14" y="30" width="8" height="12" rx="1" fill="#A9792C"/>
+                      <rect x="26" y="28" width="12" height="8" rx="1" fill="#FFF7E8" stroke="#0E1B2D" stroke-width="1"/>
+                      <polyline points="4,24 24,8 44,24" stroke="#0E1B2D" stroke-width="2.5" stroke-linejoin="round" fill="#C5A870"/>
+                      <line x1="14" y1="24" x2="34" y2="24" stroke="#A9792C" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="about-feature-body">
+                    <h2 class="about-feature-title">REACH</h2>
+                    <p class="about-feature-desc">Navigate with confidence and make the most of your campus experience.</p>
+                  </div>
+                </article>
+
+              </div><!-- /about-features-list -->
+
+              <!-- Institutional information panel -->
+              <div class="about-institution-panel">
+                <div class="about-institution-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" class="about-inst-icon-svg" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#162A46" stroke="#0E1B2D" stroke-width="1.5"/>
+                    <line x1="12" y1="11" x2="12" y2="18" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="12" cy="8" r="1.5" fill="#FFFFFF"/>
+                  </svg>
+                </div>
+                <div class="about-institution-body">
+                  <p class="about-inst-name">JYOTHI ENGINEERING COLLEGE</p>
+                  <p class="about-inst-motto">CREATING TECHNOLOGY LEADERS OF TOMORROW</p>
+                  <div class="about-inst-rule" aria-hidden="true">❖</div>
+                  <p class="about-inst-estd">ESTD. 2002</p>
+                </div>
+              </div>
+
+            </div><!-- /about-scroll-area -->
+
+            <!-- Panel institutional footer -->
+            <footer class="info-panel-footer">
+              <div class="info-footer-college-line">
+                <span class="info-footer-gem">❖</span>
+                <span>JYOTHI ENGINEERING COLLEGE</span>
+                <span class="info-footer-gem">❖</span>
+              </div>
+              <div class="info-footer-motto">CREATING TECHNOLOGY LEADERS OF TOMORROW</div>
+            </footer>
+
+          </div><!-- /info-content-panel.about-panel -->
+        </div><!-- /info-screen-container -->
+      </section>
+
+    </div><!-- /app-viewport -->
+
+    <!-- OVERLAY: PRODUCTION ARRIVAL MODAL (Preserved for 100% Phase 6 test compatibility) -->
+    <div id="arrival-modal" class="arrival-modal-overlay" style="display: none;">
+      <div class="arrival-modal-container">
+        <img class="arrival-sparkle" src="assets/arrival/arrival_sparkle.png" alt="Sparkle">
+        <img class="arrival-banner" src="assets/arrival/arrival_banner.png" alt="Destination Reached">
+        <div class="arrival-modal-panel">
+          <img class="arrival-badge" src="assets/arrival/arrival_badge.png" alt="Arrival Badge">
+          <div class="arrival-title">DESTINATION REACHED</div>
+          <div id="arrival-room-code" class="arrival-room-code"></div>
+          <div id="arrival-room-name" class="arrival-room-name"></div>
+          <button type="button" id="arrival-close-btn" class="arrival-ok-btn"><img src="assets/ui-icons/icon_check.png" alt="" style="width: 14px; height: 14px; margin-right: 6px; vertical-align: middle; image-rendering: pixelated;">CONTINUE EXPLORING</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLOBAL BOTTOM NAVIGATION BAR (Phase 11 6-Tab Institutional Navigation) -->
+    <nav id="app-bottom-nav" class="bottom-nav" aria-label="Global Application Navigation" style="display: none;">
+      <button type="button" id="nav-tab-map" class="nav-tab-btn active" data-target="map" aria-selected="true">
+        <span class="nav-tab-icon">
+          <img src="assets/ui-icons/icon_location.png" alt="Map" style="width: 20px; height: 20px; image-rendering: pixelated;">
+        </span>
+        <span class="nav-tab-label">Map</span>
+      </button>
+      <button type="button" id="nav-tab-search" class="nav-tab-btn" data-target="search" aria-selected="false">
+        <span class="nav-tab-icon">
+          <img src="assets/ui-icons/ui_search_icon.png" alt="Search" style="width: 20px; height: 20px; image-rendering: pixelated;">
+        </span>
+        <span class="nav-tab-label">Search</span>
+      </button>
+      <button type="button" id="nav-tab-character" class="nav-tab-btn" data-target="character_select" aria-selected="false">
+        <span class="nav-tab-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </span>
+        <span class="nav-tab-label">Character</span>
+      </button>
+      <button type="button" id="nav-tab-settings" class="nav-tab-btn" data-target="settings" aria-selected="false">
+        <span class="nav-tab-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </span>
+        <span class="nav-tab-label">Settings</span>
+      </button>
+      <button type="button" id="nav-tab-navigate" class="nav-tab-btn" data-target="how_to_navigate" aria-selected="false">
+        <span class="nav-tab-icon">
+          <img src="assets/ui-icons/icon_navigation.png" alt="How to Navigate" style="width: 20px; height: 20px; image-rendering: pixelated;">
+        </span>
+        <span class="nav-tab-label">How to Navigate</span>
+      </button>
+      <button type="button" id="nav-tab-menu" class="nav-tab-btn" data-target="about" aria-selected="false">
+        <span class="nav-tab-icon">
+          <img src="assets/ui-icons/icon_info.png" alt="About" style="width: 20px; height: 20px; image-rendering: pixelated;">
+        </span>
+        <span class="nav-tab-label">About</span>
+      </button>
+    </nav>
+
+  </div><!-- /phone-frame -->
 
   <script type="module" src="app.js"></script>
 </body>

@@ -103,6 +103,46 @@ public class ApiService {
         }
     }
 
+    /**
+     * Routes between arbitrary graph nodes (for debug inspection and direct node navigation).
+     * Rejects routing to locked room doors (e.g. W217_DOOR); permits fire exits as emergency targets.
+     */
+    public String routeNodes(String fromNodeId, String toNodeId) {
+        try {
+            String start = (fromNodeId == null || fromNodeId.isBlank()) ? Navigator.DEFAULT_START : fromNodeId;
+            if (toNodeId == null || toNodeId.isBlank()) {
+                return "{\"found\":false}";
+            }
+
+            String destinationNodeId = toNodeId;
+            try {
+                Room room = navigator.getRoom(toNodeId);
+                if (room.isLocked() || room.getRoutableDoors().isEmpty()) {
+                    return "{\"found\":false}";
+                }
+                destinationNodeId = room.getPrimaryDoor().getId();
+            } catch (IllegalArgumentException ignored) {
+                // Not a room id, assume node id
+            }
+
+            for (Room room : navigator.getAllRooms()) {
+                if (room.isLocked()) {
+                    for (DoorNode door : room.getDoors()) {
+                        if (door.getId().equals(destinationNodeId)) {
+                            return "{\"found\":false}";
+                        }
+                    }
+                }
+            }
+
+            com.cse.navigator.graph.Dijkstra dijkstra = new com.cse.navigator.graph.Dijkstra(navigator.getGraph());
+            Route route = dijkstra.findRoute(start, destinationNodeId);
+            return route.toJson();
+        } catch (Exception e) {
+            return "{\"found\":false}";
+        }
+    }
+
     private JsonObject roomToJson(Room room) {
         JsonObject obj = new JsonObject();
         obj.addProperty("id", room.getId());

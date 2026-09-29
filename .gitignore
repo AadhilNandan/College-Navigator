@@ -1,7 +1,32 @@
+# Build artifacts
 target/
 *.class
+node_modules/
+
+# IDE
 .idea/
 *.iml
-node_modules/
+.vscode/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Debug / development-only files
+debug.css
+debug.html
+debug.js
+js/perf-hud.js
+
+# Screenshots (dev captures, not runtime assets)
+screenshot_*.png
+mobile_qr.png
+
+# Scratch / temp
+scratch/
+
+# Test harnesses
+tests/
+
+# Optimised asset previews
 assets/optimised/preview/

@@ -75,10 +75,13 @@ public final class StaticFiles {
         }
         pathStr = pathStr.replace('\\', '/');
 
-        // Strictly allow only: /index.html, /style.css, /app.js, /js/**, /data/**, /assets/**
+        // Strictly allow only: /index.html, /style.css, /app.js, /debug.html, /debug.css, /debug.js, /js/**, /data/**, /assets/**
         boolean allowed = pathStr.equals("index.html")
                 || pathStr.equals("style.css")
                 || pathStr.equals("app.js")
+                || pathStr.equals("debug.html")
+                || pathStr.equals("debug.css")
+                || pathStr.equals("debug.js")
                 || pathStr.startsWith("js/")
                 || pathStr.startsWith("data/")
                 || pathStr.startsWith("assets/");
@@ -138,6 +141,10 @@ public final class StaticFiles {
         String contentType = getContentType(file);
 
         exchange.getResponseHeaders().set("Content-Type", contentType);
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        if (path.startsWith("/assets/")) {
+            exchange.getResponseHeaders().set("Cache-Control", "public, max-age=86400");
+        }
         exchange.sendResponseHeaders(200, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(bytes);
@@ -147,6 +154,7 @@ public final class StaticFiles {
     private static void sendText(HttpExchange exchange, int status, String text) throws IOException {
         byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
         exchange.getResponseHeaders().set("Content-Type", "text/plain; charset=utf-8");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
         exchange.sendResponseHeaders(status, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(bytes);
