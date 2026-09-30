@@ -13,7 +13,7 @@
  */
 
 // ─── Set this to your Railway backend URL after deployment ───
-const RAILWAY_BACKEND_URL = "";  // e.g. "https://college-navigator-backend-production.up.railway.app"
+const RAILWAY_BACKEND_URL = "https://college-navigator-production-f5f2.up.railway.app";
 
 function detectApiBase() {
   const hostname = window.location.hostname;
