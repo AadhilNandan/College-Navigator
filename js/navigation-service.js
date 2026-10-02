@@ -15,8 +15,25 @@ import { AppState, updateNavigation, setMapMode } from "./state.js";
 import { API_BASE } from "./api-config.js";
 import { ScreenManager, SCREENS, OVERLAYS } from "./screen-manager.js";
 import { MovementSystem } from "./movement.js";
+import { AudioManager } from "./audio-manager.js";
 
 export const ARRIVAL_RADIUS_METRES = 1.5;
+
+/**
+ * Determines whether a room is restricted based on character gender.
+ * Boy character cannot access Ladies Washroom (WAB 218).
+ * Girl character cannot access Men's Washroom (WAB 208).
+ * @param {string} roomId
+ * @param {string} [character] - defaults to AppState.character
+ * @returns {boolean}
+ */
+export function isWashroomRestricted(roomId, character = AppState.character) {
+  if (!roomId) return false;
+  const normalized = String(roomId).toUpperCase().replace(/\s+/g, "");
+  if (normalized === "WAB218" && character === "boy") return true;
+  if (normalized === "WAB208" && character === "girl") return true;
+  return false;
+}
 
 /**
  * Resolves the nearest accessible graph junction or door node to a given world coordinate.
@@ -114,6 +131,10 @@ export const NavigationService = (function() {
    * @returns {Object} Origin model
    */
   function setOrigin(originId) {
+    if (originId && isWashroomRestricted(originId, AppState.character)) {
+      console.warn(`[NavigationService] Origin ${originId} is restricted for ${AppState.character}.`);
+      return selectedOrigin;
+    }
     if (!originId || originId === "CURRENT_POS") {
       selectedOrigin = { id: "CURRENT_POS", label: "Current Location", nodeId: null };
     } else if (originId === "ENTRANCE") {
@@ -154,6 +175,11 @@ export const NavigationService = (function() {
    * @returns {Object|null} Destination object
    */
   function selectDestination(roomId, specificDoorId = null) {
+    if (isWashroomRestricted(roomId, AppState.character)) {
+      console.warn(`[NavigationService] Cannot select destination ${roomId}: restricted for ${AppState.character}`);
+      return null;
+    }
+
     const room = roomsMap.get(roomId);
     if (!room) {
       console.error(`[NavigationService] Room not found: ${roomId}`);
@@ -161,6 +187,7 @@ export const NavigationService = (function() {
     }
 
     const destination = createDestination(room, specificDoorId, nodeMap);
+    AudioManager.playSfx("destination-selected");
     updateNavigation({
       status: "destination_selected",
       destination,
@@ -192,6 +219,12 @@ export const NavigationService = (function() {
     if (!dest || !dest.doorId) {
       console.error("[NavigationService] Cannot calculate route: No destination set.");
       updateNavigation({ status: "route_error", errorMessage: "No destination selected" });
+      return false;
+    }
+
+    if (isWashroomRestricted(dest.roomId, AppState.character)) {
+      console.warn(`[NavigationService] Cannot calculate route: ${dest.roomId} is restricted for ${AppState.character}.`);
+      updateNavigation({ status: "route_error", errorMessage: "Destination restricted for selected character" });
       return false;
     }
 
@@ -319,6 +352,9 @@ export const NavigationService = (function() {
     const roomCode = dest ? dest.roomCode : "DESTINATION";
     const roomName = dest ? dest.name : "Destination Reached";
 
+    // Play destination reached positive completion jingle exactly once
+    AudioManager.playSfx("destination-reached");
+
     // Lock movement physics input
     MovementSystem.setInputEnabled(false);
 
@@ -376,6 +412,7 @@ export const NavigationService = (function() {
     triggerArrival,
     dismissArrival,
     cancelNavigation,
+    isWashroomRestricted,
     getRooms: () => allRooms,
     getRoom: (id) => roomsMap.get(id),
     getNode: (id) => nodeMap.get(id)

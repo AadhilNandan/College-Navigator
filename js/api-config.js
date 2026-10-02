@@ -16,6 +16,9 @@
 const RAILWAY_BACKEND_URL = "https://college-navigator-production-f5f2.up.railway.app";
 
 function detectApiBase() {
+  if (typeof window === "undefined" || !window.location) {
+    return "";
+  }
   const hostname = window.location.hostname;
   const isLocal = hostname === "localhost"
     || hostname === "127.0.0.1"

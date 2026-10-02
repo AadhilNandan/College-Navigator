@@ -9,6 +9,7 @@
  */
 
 import { AppState, setScreen, setOverlay, subscribe } from "./state.js";
+import { AudioManager } from "./audio-manager.js";
 
 export const SCREENS = {
   WELCOME: "welcome",
@@ -83,6 +84,8 @@ export const ScreenManager = (function() {
       return; // Already on this screen
     }
 
+    const previousScreenId = currentActiveScreen ? currentActiveScreen.id : null;
+
     // 1. Deactivate & exit currently active screen
     if (currentActiveScreen) {
       try {
@@ -100,6 +103,11 @@ export const ScreenManager = (function() {
         // Only push to history if not navigating back and not navigating to self
         screenHistory.push(currentActiveScreen.id);
       }
+    }
+
+    // Trigger map-enter sound effect when entering playable map from non-map screen
+    if (targetScreenId === SCREENS.MAP && previousScreenId && previousScreenId !== SCREENS.MAP) {
+      AudioManager.playSfx("map-enter");
     }
 
     // 2. Enter, render & activate target screen
@@ -127,6 +135,8 @@ export const ScreenManager = (function() {
    * @returns {boolean} True if back navigation was performed
    */
   function goBack() {
+    AudioManager.playSfx("back");
+
     if (AppState.activeOverlay) {
       closeOverlay();
       return true;
@@ -265,3 +275,7 @@ export const ScreenManager = (function() {
     OVERLAYS
   };
 })();
+
+if (typeof window !== "undefined") {
+  window.ScreenManager = ScreenManager;
+}

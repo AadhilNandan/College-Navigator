@@ -156,7 +156,9 @@ export const MapRenderer = (function() {
         balustrade_h: null,
         balustrade_v: null,
         seating: null,
-        stage: null
+        stage: null,
+        // Fire Exit Stairwell Asset
+        staircase_down: null
     };
 
     const STAIRS_ELEVATOR_CONFIG = {
@@ -319,7 +321,9 @@ export const MapRenderer = (function() {
                 ['balustrade_h', 'assets/auditorium/auditorium_balustrade_h.png'],
                 ['balustrade_v', 'assets/auditorium/auditorium_balustrade_v.png'],
                 ['seating', 'assets/auditorium/auditorium_seating_tier.png'],
-                ['stage', 'assets/auditorium/auditorium_stage_podium.png']
+                ['stage', 'assets/auditorium/auditorium_stage_podium.png'],
+                // Fire Exit Descending Stairwell Asset
+                ['staircase_down', 'assets/stairs-elevator/staircase_down.png']
             ];
 
             await Promise.all(assetMap.map(async ([key, url]) => {
@@ -1852,33 +1856,40 @@ export const MapRenderer = (function() {
         const currentZoom = cameraZoom || 18;
         const bw = bay.x2 - bay.x1;
         const cx = (bay.x1 + bay.x2) / 2;
-        let cy = bay.y1 + 0.62;
+        let cy = bay.y1 + 0.74;
         if (room.id === 'WAB213') {
-            cy = bay.y1 + 1.85; // Below north entrance in South lab
+            cy = bay.y1 + 1.95; // Below north entrance in South lab
         }
 
-        const isDetailed = currentZoom >= 16;
-        const pw = Math.min(bw - 0.7, isDetailed ? 4.4 : 2.5);
-        const ph = isDetailed ? 0.95 : 0.58;
+        const isDetailed = currentZoom >= 14;
+        let pw;
+        if (room.id === 'WAB213') {
+            pw = Math.min(bw - 0.8, isDetailed ? 8.0 : 3.8);
+        } else if (bw >= 5.5) {
+            pw = Math.min(bw - 0.5, isDetailed ? 5.1 : 2.8);
+        } else {
+            pw = Math.min(bw - 0.35, isDetailed ? 4.25 : 2.5);
+        }
+        const ph = isDetailed ? 1.25 : 0.72;
         const rx = cx - pw / 2;
         const ry = cy - ph / 2;
 
         // Plaque Drop Shadow
-        ctx.fillStyle = "rgba(4, 7, 13, 0.65)";
-        ctx.fillRect(rx + 0.05, ry + 0.05, pw, ph);
+        ctx.fillStyle = "rgba(4, 7, 13, 0.75)";
+        ctx.fillRect(rx + 0.06, ry + 0.06, pw, ph);
 
-        // Deep Navy Backing
-        ctx.fillStyle = "#0E1B2D";
+        // Deep Solid Navy Backing
+        ctx.fillStyle = "#0B1524";
         ctx.fillRect(rx, ry, pw, ph);
 
         // Gold 16-bit Border
         ctx.strokeStyle = "#FFB52E";
-        ctx.lineWidth = 0.07;
+        ctx.lineWidth = 0.08;
         ctx.strokeRect(rx, ry, pw, ph);
 
         // Corner gold pixel trim
-        ctx.fillStyle = "#D6A84F";
-        const cs = 0.12;
+        ctx.fillStyle = "#FFD166";
+        const cs = 0.13;
         ctx.fillRect(rx, ry, cs, cs);
         ctx.fillRect(rx + pw - cs, ry, cs, cs);
         ctx.fillRect(rx, ry + ph - cs, cs, cs);
@@ -1889,32 +1900,33 @@ export const MapRenderer = (function() {
         ctx.textBaseline = "middle";
 
         if (isDetailed) {
-            // Primary WAB Code (Large, Ivory/Cream)
+            // Primary WAB Code (Large, Ivory/Cream, Pixel Font)
             ctx.fillStyle = "#FFFDF9";
-            ctx.font = "bold 0.36px 'Press Start 2P', monospace";
-            ctx.fillText(room.code, cx, cy - 0.17);
+            ctx.font = "bold 0.38px 'Press Start 2P', monospace";
+            ctx.fillText(room.code, cx, cy - 0.23);
 
-            // Secondary Room Title
+            // Secondary Room Title (Substantially more visible, 800 Manrope, Luminous Gold/Cream)
             if (room.locked) {
-                ctx.fillStyle = "#E06A55";
-                ctx.font = "bold 0.22px 'Manrope', sans-serif";
-                ctx.fillText("LOCKED • Storage Room", cx, cy + 0.19);
+                ctx.fillStyle = "#FF7B72";
+                ctx.font = "800 0.32px 'Manrope', -apple-system, sans-serif";
+                ctx.fillText("LOCKED • Storage Room", cx, cy + 0.23);
             } else if (room.category === 'FACILITY') {
-                ctx.fillStyle = "#D6A84F";
-                ctx.font = "bold 0.22px 'Manrope', sans-serif";
+                ctx.fillStyle = "#FFDF85";
+                ctx.font = "800 0.32px 'Manrope', -apple-system, sans-serif";
                 const sub = room.id === 'WAB208' ? "🚹 Men's Washroom" : "🚺 Ladies Washroom";
-                ctx.fillText(sub, cx, cy + 0.19);
+                ctx.fillText(sub, cx, cy + 0.23);
             } else {
-                ctx.fillStyle = "#D6A84F";
-                ctx.font = "bold 0.22px 'Manrope', sans-serif";
-                const maxLen = pw > 4.0 ? 30 : 22;
+                ctx.fillStyle = "#FFDF85";
+                ctx.font = "800 0.33px 'Manrope', -apple-system, sans-serif";
+                const maxLen = pw > 7.0 ? 48 : (pw > 4.5 ? 32 : 22);
                 const sub = room.name.length > maxLen ? room.name.substring(0, maxLen - 2) + "…" : room.name;
-                ctx.fillText(sub, cx, cy + 0.19);
+                ctx.fillText(sub, cx, cy + 0.23);
             }
         } else {
-            // Medium / Low zoom: Primary WAB Code only
+            // Medium / Low zoom: Primary WAB Code only (clamped to remain clearly legible at exhibition distance)
             ctx.fillStyle = "#FFFDF9";
-            ctx.font = "bold 0.32px 'Press Start 2P', monospace";
+            const codeSize = Math.max(0.38, 5.2 / currentZoom).toFixed(2);
+            ctx.font = `bold ${codeSize}px 'Press Start 2P', monospace`;
             ctx.fillText(room.code, cx, cy);
         }
         ctx.restore();
@@ -1936,6 +1948,278 @@ export const MapRenderer = (function() {
         scale: 24 // 24 px per world meter = 1248 x 2544 px
     };
 
+    function renderAuditoriumVoid(ctx, assets, viewMinX = -100, viewMaxX = 100, viewMinY = -100, viewMaxY = 200) {
+        // Frustum culled: only render if courtyard intersects visible viewport
+        const isVoidVisible = !(viewMaxX < -10.0 || viewMinX > 10.0 || viewMaxY < 34.0 || viewMinY > 71.5);
+        if (!isVoidVisible) return;
+
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+
+        // 1. Multi-Stop Deep Shaft Void Base Gradient (Level 0 depth)
+        const voidGrad = ctx.createLinearGradient(0, 34.5, 0, 71.0);
+        voidGrad.addColorStop(0, "#08111D");
+        voidGrad.addColorStop(0.2, "#04070D");
+        voidGrad.addColorStop(0.8, "#04070D");
+        voidGrad.addColorStop(1, "#08111D");
+        ctx.fillStyle = voidGrad;
+        ctx.fillRect(-9.5, 34.5, 19.0, 36.5);
+
+        // 2. Recessed ambient shadow along void edges to convey vertical depth below Level 1
+        ctx.save();
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.85)";
+        ctx.lineWidth = 0.8;
+        ctx.strokeRect(-9.1, 34.9, 18.2, 35.7);
+        ctx.strokeStyle = "rgba(14, 27, 45, 0.55)";
+        ctx.lineWidth = 0.4;
+        ctx.strokeRect(-8.8, 35.2, 17.6, 35.1);
+        ctx.restore();
+
+        // 3. Auditorium Seating Tiers (Level 0, below Level 1 balcony)
+        if (assets && assets.seating) {
+            ctx.save();
+            // Upper seating section (North tiered rows)
+            ctx.drawImage(assets.seating, -7.5, 36.5, 15.0, 7.5);
+            // Lower seating section (South tiered rows)
+            ctx.drawImage(assets.seating, -7.5, 52.5, 15.0, 7.5);
+
+            // Subtle dark atmospheric depth shadow over seating
+            ctx.fillStyle = "rgba(4, 7, 13, 0.42)";
+            ctx.fillRect(-7.5, 36.5, 15.0, 7.5);
+            ctx.fillRect(-7.5, 52.5, 15.0, 7.5);
+            ctx.restore();
+        }
+
+        // 4. Auditorium Stage & Podium (Center-South, Level 0)
+        if (assets && assets.stage) {
+            ctx.save();
+            const stW = 7.6;
+            const stH = 5.8;
+            const stX = -stW / 2;
+            const stY = 62.8;
+            ctx.drawImage(assets.stage, stX, stY, stW, stH);
+
+            // Warm stage lighting glow
+            const stGlow = ctx.createRadialGradient(0, stY + stH / 2, 0.5, 0, stY + stH / 2, stW / 1.8);
+            stGlow.addColorStop(0, "rgba(255, 235, 170, 0.16)");
+            stGlow.addColorStop(1, "rgba(255, 235, 170, 0)");
+            ctx.fillStyle = stGlow;
+            ctx.fillRect(stX - 1, stY - 1, stW + 2, stH + 2);
+
+            ctx.fillStyle = "rgba(214, 168, 79, 0.85)";
+            ctx.font = "bold 0.32px 'Press Start 2P', monospace";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("STAGE (LEVEL 0)", 0, stY + stH - 0.6);
+            ctx.restore();
+        }
+
+        // 5. Central Institutional Void Label
+        ctx.save();
+        ctx.fillStyle = "#FFFDF9";
+        ctx.font = "bold 0.85px 'Press Start 2P', monospace";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("AUDITORIUM", 0, 48.2);
+
+        ctx.fillStyle = "#D6A84F";
+        ctx.font = "bold 0.65px 'Manrope', sans-serif";
+        ctx.fillText("(LEVEL 0 - BELOW)", 0, 49.5);
+
+        ctx.strokeStyle = "rgba(214, 168, 79, 0.4)";
+        ctx.lineWidth = 0.08;
+        ctx.setLineDash([0.3, 0.2]);
+        ctx.beginPath();
+        ctx.moveTo(-4.5, 50.4);
+        ctx.lineTo(4.5, 50.4);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = "#FFFDF9";
+        ctx.font = "bold 0.65px 'Press Start 2P', monospace";
+        ctx.fillText("OPEN TO BELOW", 0, 51.4);
+
+        ctx.fillStyle = "#B8C9DC";
+        ctx.font = "600 0.60px 'Manrope', sans-serif";
+        ctx.fillText("(Overlooks Level 0 Auditorium)", 0, 52.6);
+        ctx.restore();
+
+        // 6. Modular Balustrades & Railings (Level 1 Balcony Edge)
+        if (assets && assets.balustrade_h && assets.balustrade_v) {
+            ctx.save();
+            const railThick = 0.85;
+
+            // North Balustrade: y = 34.5, spans x in [-9.5, 9.5] (19.0m)
+            const segW = 3.8;
+            for (let bx = -9.5; bx < 9.4; bx += segW) {
+                ctx.drawImage(assets.balustrade_h, bx, 34.5 - railThick / 2, segW, railThick);
+            }
+
+            // South Balustrade: y = 71.0, spans x in [-9.5, 9.5] (19.0m)
+            for (let bx = -9.5; bx < 9.4; bx += segW) {
+                ctx.drawImage(assets.balustrade_h, bx, 71.0 - railThick / 2, segW, railThick);
+            }
+
+            // West Balustrade: x = -9.5, spans y in [34.5, 71.0] (36.5m)
+            const segH = 3.65;
+            for (let by = 34.5; by < 70.9; by += segH) {
+                ctx.drawImage(assets.balustrade_v, -9.5 - railThick / 2, by, railThick, segH);
+            }
+
+            // East Balustrade: x = 9.5, spans y in [34.5, 71.0] (36.5m)
+            for (let by = 34.5; by < 70.9; by += segH) {
+                ctx.drawImage(assets.balustrade_v, 9.5 - railThick / 2, by, railThick, segH);
+            }
+
+            // Corner Anchor Pillars at the 4 balustrade vertices
+            const corners = [
+                { x: -9.5, y: 34.5 },
+                { x: 9.5, y: 34.5 },
+                { x: -9.5, y: 71.0 },
+                { x: 9.5, y: 71.0 }
+            ];
+            corners.forEach(c => {
+                ctx.fillStyle = "#D6A84F";
+                ctx.fillRect(c.x - 0.45, c.y - 0.45, 0.9, 0.9);
+                ctx.strokeStyle = "#0E1B2D";
+                ctx.lineWidth = 0.08;
+                ctx.strokeRect(c.x - 0.45, c.y - 0.45, 0.9, 0.9);
+            });
+
+            ctx.restore();
+        } else {
+            // Fallback golden railing stroke
+            ctx.save();
+            ctx.strokeStyle = "#D6A84F";
+            ctx.lineWidth = 0.22;
+            ctx.strokeRect(-9.5, 34.5, 19.0, 36.5);
+            ctx.restore();
+        }
+
+        ctx.restore();
+    }
+
+    function renderFireExitStaircases(ctx, nodes, assets, viewMinX = -100, viewMaxX = 100, viewMinY = -100, viewMaxY = 200) {
+        const fireExits = [
+            { id: "FE_1", x: 12.5, y: 35.6, dir: 1, x1: 12.5, x2: 17.2, y1: 34.6, y2: 36.6 },
+            { id: "FE_L", x: -12.4, y: 35.6, dir: -1, x1: -17.2, x2: -12.4, y1: 34.6, y2: 36.6 },
+            { id: "FE_B", x: 11.2, y: 74.6, dir: 1, x1: 11.2, x2: 15.9, y1: 73.6, y2: 75.6 }
+        ];
+
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+
+        fireExits.forEach(fe => {
+            const bw = fe.x2 - fe.x1;
+            const bh = fe.y2 - fe.y1;
+            if (fe.x2 < viewMinX || fe.x1 > viewMaxX || fe.y2 < viewMinY || fe.y1 > viewMaxY) {
+                return;
+            }
+
+            const isEast = fe.dir === 1;
+
+            // 1. Concrete landing floor base
+            ctx.fillStyle = "#0a111a";
+            ctx.fillRect(fe.x1, fe.y1, bw, bh);
+
+            // 2. Multi-stop descending depth gradient (Level 1 landing down into Level 0 stairwell shaft)
+            const shaftGrad = ctx.createLinearGradient(
+                isEast ? fe.x1 : fe.x2, 0,
+                isEast ? fe.x2 : fe.x1, 0
+            );
+            shaftGrad.addColorStop(0, "rgba(20, 32, 48, 0.45)");
+            shaftGrad.addColorStop(0.5, "rgba(10, 16, 26, 0.85)");
+            shaftGrad.addColorStop(1, "#020509");
+            ctx.fillStyle = shaftGrad;
+            ctx.fillRect(fe.x1, fe.y1, bw, bh);
+
+            // 3. Pixel art staircase asset descending down
+            const stairImg = assets ? assets.staircase_down : null;
+            if (stairImg) {
+                ctx.save();
+                const stW = 2.4;
+                const stH = 1.8;
+                const stY = fe.y1 + (bh - stH) / 2;
+                if (isEast) {
+                    ctx.drawImage(stairImg, fe.x1 + 0.15, stY, stW, stH);
+                } else {
+                    ctx.translate(fe.x2 - 0.15, stY);
+                    ctx.scale(-1, 1);
+                    ctx.drawImage(stairImg, 0, 0, stW, stH);
+                }
+                ctx.restore();
+            }
+
+            // Step tread depth lines
+            ctx.strokeStyle = "rgba(0, 0, 0, 0.55)";
+            ctx.lineWidth = 0.04;
+            for (let i = 1; i <= 4; i++) {
+                const stepX = isEast ? fe.x1 + 0.35 + i * 0.45 : fe.x2 - 0.35 - i * 0.45;
+                ctx.beginPath();
+                ctx.moveTo(stepX, fe.y1 + 0.1);
+                ctx.lineTo(stepX, fe.y2 - 0.1);
+                ctx.stroke();
+            }
+
+            // 4. Outer stairwell enclosure walls (16-bit retro architecture)
+            ctx.strokeStyle = "#475569";
+            ctx.lineWidth = 0.10;
+            ctx.beginPath();
+            if (isEast) {
+                ctx.moveTo(fe.x1, fe.y1);
+                ctx.lineTo(fe.x2, fe.y1);
+                ctx.lineTo(fe.x2, fe.y2);
+                ctx.lineTo(fe.x1, fe.y2);
+            } else {
+                ctx.moveTo(fe.x2, fe.y1);
+                ctx.lineTo(fe.x1, fe.y1);
+                ctx.lineTo(fe.x1, fe.y2);
+                ctx.lineTo(fe.x2, fe.y2);
+            }
+            ctx.stroke();
+
+            // 5. 16-Bit Directional Plaque: Communicates LEVEL 1 -> STAIRS DOWN -> LEVEL 0
+            const plaqueW = 1.8;
+            const plaqueH = 1.6;
+            const plaqueX = isEast ? fe.x2 - plaqueW - 0.15 : fe.x1 + 0.15;
+            const plaqueY = fe.y1 + (bh - plaqueH) / 2;
+
+            // Plaque background & gold border
+            ctx.fillStyle = "#09111c";
+            ctx.fillRect(plaqueX, plaqueY, plaqueW, plaqueH);
+            ctx.strokeStyle = "#d97706";
+            ctx.lineWidth = 0.04;
+            ctx.strokeRect(plaqueX, plaqueY, plaqueW, plaqueH);
+
+            // Plaque text
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            const centerX = plaqueX + plaqueW / 2;
+
+            ctx.fillStyle = "#93c5fd";
+            ctx.font = "bold 0.14px 'Press Start 2P', monospace";
+            ctx.fillText("LEVEL 1", centerX, plaqueY + 0.24);
+
+            ctx.fillStyle = "#fbbf24";
+            ctx.font = "bold 0.14px 'Press Start 2P', monospace";
+            ctx.fillText("↓", centerX, plaqueY + 0.52);
+
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 0.11px 'Press Start 2P', monospace";
+            ctx.fillText("STAIRS DOWN", centerX, plaqueY + 0.80);
+
+            ctx.fillStyle = "#fbbf24";
+            ctx.font = "bold 0.14px 'Press Start 2P', monospace";
+            ctx.fillText("↓", centerX, plaqueY + 1.08);
+
+            ctx.fillStyle = "#4ade80";
+            ctx.font = "bold 0.14px 'Press Start 2P', monospace";
+            ctx.fillText("LEVEL 0", centerX, plaqueY + 1.34);
+        });
+
+        ctx.restore();
+    }
+
     function buildStaticWorldCache(nodes, edges, nodeMap, rooms) {
         if (typeof document === 'undefined') return;
         try {
@@ -1953,8 +2237,10 @@ export const MapRenderer = (function() {
             renderEnvironment(cCtx, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
             renderBuildingFoundation(cCtx, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
             renderFloors(cCtx, nodes, edges, nodeMap, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
+            renderAuditoriumVoid(cCtx, assets, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
             renderRoomBays(cCtx, rooms, nodes, nodeMap, 24, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
             renderWalls(cCtx, nodes, edges, nodeMap, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
+            renderFireExitStaircases(cCtx, nodes, assets, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
             renderDoors(cCtx, nodes, edges, nodeMap, rooms, null, STATIC_WORLD_BOUNDS.minX, STATIC_WORLD_BOUNDS.maxX, STATIC_WORLD_BOUNDS.minY, STATIC_WORLD_BOUNDS.maxY);
 
             cCtx.restore();
@@ -2078,6 +2364,8 @@ export const MapRenderer = (function() {
         renderFloors,
         renderWalls,
         renderDoors,
+        renderFireExitStaircases,
+        renderAuditoriumVoid,
         renderRoomBays,
         renderEnvironment,
         renderMinimap,
@@ -2088,7 +2376,7 @@ export const MapRenderer = (function() {
     };
 })();
 
-export function renderCanvasMap(ctx, canvas, camera, { nodes, edges, nodeMap, rooms, currentRoute, activeDestination, isDebug, cameraZoom, mapScene = 'NORTH', drawPlayer, drawDebug, playerPos }) {
+export function renderCanvasMap(ctx, canvas, camera, { nodes, edges, nodeMap, rooms, currentRoute, activeDestination, isDebug, cameraZoom, mapScene = 'NORTH', drawPlayer, drawDebug, drawNpc, drawStudent, playerPos, guideY = 1.1, getStudentY }) {
   const dpr = (canvas.width && canvas.style && canvas.style.width) ? (canvas.width / parseFloat(canvas.style.width)) : Math.min((typeof window !== "undefined" && window.devicePixelRatio) || 1, 2);
   const zoom = camera.zoom || cameraZoom || 18;
   const cssW = (canvas.style && canvas.style.width) ? parseFloat(canvas.style.width) : (camera.viewportWidth || canvas.width / dpr);
@@ -2294,150 +2582,13 @@ export function renderCanvasMap(ctx, canvas, camera, { nodes, edges, nodeMap, ro
   // --------------------------------------------------------------------------
   // LAYER 0.5: CENTRAL VOID COURTYARD (Auditorium Level 0 / Open to Below)
   // Authoritative geometry: x in [-9.5, 9.5], y in [34.5, 71.0]
-  // Frustum culled: only render if courtyard intersects visible viewport
   // --------------------------------------------------------------------------
-  const isVoidVisible = !(viewMaxX < -10.0 || viewMinX > 10.0 || viewMaxY < 34.0 || viewMinY > 71.5);
-  if (isVoidVisible) {
-    // 1. Multi-Stop Deep Shaft Void Base Gradient
-    const voidGrad = ctx.createLinearGradient(0, 34.5, 0, 71.0);
-    voidGrad.addColorStop(0, "#08111D");
-    voidGrad.addColorStop(0.2, "#04070D");
-    voidGrad.addColorStop(0.8, "#04070D");
-    voidGrad.addColorStop(1, "#08111D");
-    ctx.fillStyle = voidGrad;
-    ctx.fillRect(-9.5, 34.5, 19.0, 36.5);
+  MapRenderer.renderAuditoriumVoid(ctx, assets, viewMinX, viewMaxX, viewMinY, viewMaxY);
 
-    // 2. Recessed ambient shadow along void edges to convey vertical depth below Level 1
-    ctx.save();
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.85)";
-    ctx.lineWidth = 0.8;
-    ctx.strokeRect(-9.1, 34.9, 18.2, 35.7);
-    ctx.strokeStyle = "rgba(14, 27, 45, 0.55)";
-    ctx.lineWidth = 0.4;
-    ctx.strokeRect(-8.8, 35.2, 17.6, 35.1);
-    ctx.restore();
-
-    // 3. Auditorium Seating Tiers (Level 0, below Level 1 balcony)
-    if (assets.seating) {
-      ctx.save();
-      // Upper seating section (North tiered rows)
-      ctx.drawImage(assets.seating, -7.5, 36.5, 15.0, 7.5);
-      // Lower seating section (South tiered rows)
-      ctx.drawImage(assets.seating, -7.5, 52.5, 15.0, 7.5);
-
-      // Subtle dark atmospheric depth shadow over seating
-      ctx.fillStyle = "rgba(4, 7, 13, 0.42)";
-      ctx.fillRect(-7.5, 36.5, 15.0, 7.5);
-      ctx.fillRect(-7.5, 52.5, 15.0, 7.5);
-      ctx.restore();
-    }
-
-    // 4. Auditorium Stage & Podium (Center-South, Level 0)
-    if (assets.stage) {
-      ctx.save();
-      const stW = 7.6;
-      const stH = 5.8;
-      const stX = -stW / 2;
-      const stY = 62.8;
-      ctx.drawImage(assets.stage, stX, stY, stW, stH);
-
-      // Warm stage lighting glow
-      const stGlow = ctx.createRadialGradient(0, stY + stH / 2, 0.5, 0, stY + stH / 2, stW / 1.8);
-      stGlow.addColorStop(0, "rgba(255, 235, 170, 0.16)");
-      stGlow.addColorStop(1, "rgba(255, 235, 170, 0)");
-      ctx.fillStyle = stGlow;
-      ctx.fillRect(stX - 1, stY - 1, stW + 2, stH + 2);
-
-      ctx.fillStyle = "rgba(214, 168, 79, 0.85)";
-      ctx.font = "bold 0.32px 'Press Start 2P', monospace";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("STAGE (LEVEL 0)", 0, stY + stH - 0.6);
-      ctx.restore();
-    }
-
-    // 5. Central Institutional Void Label
-    ctx.save();
-    ctx.fillStyle = "#FFFDF9";
-    ctx.font = "bold 0.85px 'Press Start 2P', monospace";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("AUDITORIUM", 0, 48.2);
-
-    ctx.fillStyle = "#D6A84F";
-    ctx.font = "bold 0.65px 'Manrope', sans-serif";
-    ctx.fillText("(LEVEL 2 ATRIUM)", 0, 49.5);
-
-    ctx.strokeStyle = "rgba(214, 168, 79, 0.4)";
-    ctx.lineWidth = 0.08;
-    ctx.setLineDash([0.3, 0.2]);
-    ctx.beginPath();
-    ctx.moveTo(-4.5, 50.4);
-    ctx.lineTo(4.5, 50.4);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    ctx.fillStyle = "#FFFDF9";
-    ctx.font = "bold 0.65px 'Press Start 2P', monospace";
-    ctx.fillText("OPEN TO BELOW", 0, 51.4);
-
-    ctx.fillStyle = "#B8C9DC";
-    ctx.font = "600 0.60px 'Manrope', sans-serif";
-    ctx.fillText("(Overlooks Level 1 & Ground)", 0, 52.6);
-    ctx.restore();
-
-    // 6. Modular Balustrades & Railings (Level 1 Balcony Edge)
-    if (assets.balustrade_h && assets.balustrade_v) {
-      ctx.save();
-      const railThick = 0.85;
-
-      // North Balustrade: y = 34.5, spans x in [-9.5, 9.5] (19.0m)
-      const segW = 3.8;
-      for (let bx = -9.5; bx < 9.4; bx += segW) {
-        ctx.drawImage(assets.balustrade_h, bx, 34.5 - railThick / 2, segW, railThick);
-      }
-
-      // South Balustrade: y = 71.0, spans x in [-9.5, 9.5] (19.0m)
-      for (let bx = -9.5; bx < 9.4; bx += segW) {
-        ctx.drawImage(assets.balustrade_h, bx, 71.0 - railThick / 2, segW, railThick);
-      }
-
-      // West Balustrade: x = -9.5, spans y in [34.5, 71.0] (36.5m)
-      const segH = 3.65;
-      for (let by = 34.5; by < 70.9; by += segH) {
-        ctx.drawImage(assets.balustrade_v, -9.5 - railThick / 2, by, railThick, segH);
-      }
-
-      // East Balustrade: x = 9.5, spans y in [34.5, 71.0] (36.5m)
-      for (let by = 34.5; by < 70.9; by += segH) {
-        ctx.drawImage(assets.balustrade_v, 9.5 - railThick / 2, by, railThick, segH);
-      }
-
-      // Corner Anchor Pillars at the 4 balustrade vertices
-      const corners = [
-        { x: -9.5, y: 34.5 },
-        { x: 9.5, y: 34.5 },
-        { x: -9.5, y: 71.0 },
-        { x: 9.5, y: 71.0 }
-      ];
-      corners.forEach(c => {
-        ctx.fillStyle = "#D6A84F";
-        ctx.fillRect(c.x - 0.45, c.y - 0.45, 0.9, 0.9);
-        ctx.strokeStyle = "#0E1B2D";
-        ctx.lineWidth = 0.08;
-        ctx.strokeRect(c.x - 0.45, c.y - 0.45, 0.9, 0.9);
-      });
-
-      ctx.restore();
-    } else {
-      // Fallback golden railing stroke
-      ctx.save();
-      ctx.strokeStyle = "#D6A84F";
-      ctx.lineWidth = 0.22;
-      ctx.strokeRect(-9.5, 34.5, 19.0, 36.5);
-      ctx.restore();
-    }
-  }
+  // --------------------------------------------------------------------------
+  // LAYER 1.0: FIRE EXIT STAIRWELLS (Descending from Level 1 toward Level 0)
+  // --------------------------------------------------------------------------
+  MapRenderer.renderFireExitStaircases(ctx, nodes, assets, viewMinX, viewMaxX, viewMinY, viewMaxY);
 
   // --------------------------------------------------------------------------
   // LAYER 1: ROOM BAYS & ARCHITECTURAL ROOM BOXES (Phase 23A - Viewport Culled)
@@ -2803,11 +2954,47 @@ export function renderCanvasMap(ctx, canvas, camera, { nodes, edges, nodeMap, ro
     ctx.restore();
   }
 
-  if (typeof drawPlayer === 'function') {
+  // Depth-sorted character rendering (Player, Campus Guide, Roaming Student)
+  const drawGuideFunc = typeof drawNpc === 'function' ? drawNpc : null;
+  const drawPlayerFunc = typeof drawPlayer === 'function' ? drawPlayer : null;
+  const drawStudentFunc = typeof drawStudent === 'function' ? drawStudent : null;
+
+  const charactersToDraw = [];
+
+  if (drawPlayerFunc && playerPos) {
+    charactersToDraw.push({
+      y: playerPos.y,
+      draw: () => drawPlayerFunc(ctx, camera.zoom),
+      name: "player"
+    });
+  }
+
+  if (drawGuideFunc) {
+    const gy = typeof guideY === 'number' ? guideY : 1.1;
+    charactersToDraw.push({
+      y: gy,
+      draw: () => drawGuideFunc(ctx, camera.zoom),
+      name: "guide"
+    });
+  }
+
+  if (drawStudentFunc) {
+    const sy = typeof getStudentY === 'function' ? getStudentY() : 18.0;
+    charactersToDraw.push({
+      y: sy,
+      draw: () => drawStudentFunc(ctx, camera.zoom),
+      name: "student"
+    });
+  }
+
+  // Sort characters by feet world Y position (smaller Y = further north = drawn first)
+  charactersToDraw.sort((a, b) => a.y - b.y);
+
+  for (const char of charactersToDraw) {
     try {
-      drawPlayer(ctx, camera.zoom);
+      char.draw();
     } catch (err) {
-      console.warn("[MapRenderer] Error in drawPlayer:", err);
+      console.warn(`[MapRenderer] Error in draw ${char.name}:`, err);
     }
   }
 
@@ -2905,13 +3092,6 @@ export function renderMinimap(minimapCtx, minimapCanvas, camera, { nodes, edges,
   const h = minimapCanvas.height;
   minimapCtx.clearRect(0, 0, w, h);
 
-  // Deep void navy background or cached static minimap layer (Phase 7)
-  if (MapRenderer.cachedMinimapCanvases && MapRenderer.cachedMinimapCanvases[mapScene]) {
-    minimapCtx.drawImage(MapRenderer.cachedMinimapCanvases[mapScene], 0, 0);
-  } else {
-  minimapCtx.fillStyle = "#08101C";
-  minimapCtx.fillRect(0, 0, w, h);
-
   // World bounding box: X [-13.5, 13.5] (27m), Y [-2, 76] (78m)
   const worldW = 27;
   const worldH = 78;
@@ -2922,6 +3102,13 @@ export function renderMinimap(minimapCtx, minimapCanvas, camera, { nodes, edges,
 
   function toMx(wx) { return originX + wx * scale; }
   function toMy(wy) { return originY + wy * scale; }
+
+  // Deep void navy background or cached static minimap layer (Phase 7)
+  if (MapRenderer.cachedMinimapCanvases && MapRenderer.cachedMinimapCanvases[mapScene]) {
+    minimapCtx.drawImage(MapRenderer.cachedMinimapCanvases[mapScene], 0, 0);
+  } else {
+  minimapCtx.fillStyle = "#08101C";
+  minimapCtx.fillRect(0, 0, w, h);
 
   // 1. Central Void Courtyard (Auditorium open-to-below)
   const voidX = toMx(-9.5);

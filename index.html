@@ -3,7 +3,7 @@
 <head>
   <script>window.__T0 = performance.now();</script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>CSE Block Navigator — Jyothi Engineering College</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,10 +31,7 @@
         </div>
         <div class="header-action-col">
           <button type="button" id="header-settings-btn" class="header-settings-btn" aria-label="Open Settings" title="Settings">
-            <svg class="ui-icon ui-icon-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
+            <img src="assets/ui-icons/icon_settings.png" alt="Settings" class="header-settings-icon" style="width: 20px; height: 20px; image-rendering: pixelated; vertical-align: middle;">
           </button>
           <button type="button" id="header-menu-btn" class="header-menu-btn" aria-label="Open Menu" title="Menu">
             <img src="assets/ui-icons/icon_menu.png" alt="Menu" style="width: 20px; height: 20px; image-rendering: pixelated; vertical-align: middle;">
@@ -78,7 +75,7 @@
                 <span class="minimap-compass" title="North">▲ N</span>
               </div>
               <button type="button" id="btn-minimap-toggle" class="minimap-toggle-btn" aria-label="Hide Minimap" title="Toggle Minimap">
-                <img src="assets/ui-icons/icon_map.png" alt="" class="minimap-toggle-icon">
+                <img src="assets/ui-icons/icon_location.png" alt="" class="minimap-toggle-icon">
                 <span id="minimap-toggle-text" class="minimap-toggle-label">HIDE</span>
               </button>
             </div>
@@ -127,6 +124,16 @@
               </div>
             </div>
           </div>
+
+          <!-- Campus Guide Proximity Interaction Prompt (Phase 7) -->
+          <div id="npc-interaction-prompt" class="npc-interaction-prompt" style="display: none;" aria-label="Interaction Prompt">
+            <button type="button" id="btn-npc-interact" class="npc-interact-btn" aria-label="Talk to Campus Guide">
+              <span class="interact-keycap">E</span>
+              <span class="interact-label">TALK</span>
+              <span class="interact-bullet">•</span>
+              <span class="interact-name">CAMPUS GUIDE</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -144,10 +151,7 @@
 
         <!-- Top Right Settings Cog Action -->
         <button type="button" id="btn-welcome-settings" class="welcome-settings-btn" aria-label="Open Settings" title="Settings">
-          <svg class="ui-icon ui-icon-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
+          <img src="assets/ui-icons/icon_settings.png" alt="Settings" class="welcome-settings-icon" style="width: 22px; height: 22px; image-rendering: pixelated; vertical-align: middle;">
         </button>
 
         <!-- Main Welcome UI Layer -->
@@ -219,9 +223,7 @@
 
         <!-- Top Left Back Action Button -->
         <button type="button" class="back-btn character-back-btn" data-back-to="welcome" aria-label="Back to Welcome" title="Back">
-          <svg class="ui-icon ui-icon-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
+          <img src="assets/ui-icons/icon_back.png" alt="Back" class="back-pixel-icon">
         </button>
 
         <!-- Main Content Layout Container -->
@@ -310,13 +312,25 @@
 
       <!-- SCREEN: MAP (HUD & Navigation Mode Panel overlay) -->
       <section id="screen-map" class="screen screen-map" aria-label="Interactive Map" style="display: none;">
-        <!-- Top Map Toolbar -->
+        <!-- Top Map Toolbar (16-Bit Retro HUD Module) -->
         <div class="map-top-bar">
           <div class="camera-mode-box">
-            <button type="button" id="btn-camera-toggle" class="toggle-btn active" aria-pressed="true">Overview / Follow</button>
+            <button type="button" id="btn-camera-toggle" class="toggle-btn active" aria-pressed="true" title="Toggle Camera Overview or Follow Player">
+              <span class="cam-status-indicator" aria-hidden="true">●</span>
+              <span class="cam-label-follow">FOLLOW</span>
+              <span class="cam-separator">/</span>
+              <span class="cam-label-overview">OVERVIEW</span>
+            </button>
           </div>
           <div class="map-controls-hint">
-            <span>WASD / Arrow keys to walk • Tap doors to navigate</span>
+            <span class="keycaps-group">
+              <span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span>
+              <span class="hint-sep">/</span>
+              <span class="keycap">▲</span><span class="keycap">◀</span><span class="keycap">▼</span><span class="keycap">▶</span>
+            </span>
+            <span class="hint-text hint-walk">WALK</span>
+            <span class="hint-bullet hint-bullet-walk">•</span>
+            <span class="hint-text hint-doors">TAP DOORS</span>
           </div>
         </div>
 
@@ -372,9 +386,7 @@
             <div class="search-panel-corner corner-br"></div>
 
             <button type="button" id="btn-search-back" class="search-back-btn back-btn" data-back-to="map" aria-label="Back to Map" title="Back">
-              <svg class="search-back-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
+              <img src="assets/ui-icons/icon_back.png" alt="Back" class="back-pixel-icon">
             </button>
 
             <div class="search-header-center">
@@ -547,9 +559,7 @@
 
         <!-- Top Left Back Action Button -->
         <button type="button" id="btn-menu-back" class="menu-back-btn back-btn" data-back-to="map" aria-label="Return to Map" title="Back">
-          <svg class="ui-icon ui-icon-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
+          <img src="assets/ui-icons/icon_back.png" alt="Back" class="back-pixel-icon">
         </button>
 
         <!-- Main Layout Container -->
@@ -594,11 +604,7 @@
               <!-- 1. RESUME TO MAP (Primary Action) -->
               <button type="button" id="menu-btn-resume" class="menu-cmd-btn cmd-primary" role="menuitem" aria-label="Resume to Map">
                 <span class="cmd-icon-box">
-                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
-                    <line x1="8" y1="2" x2="8" y2="18"></line>
-                    <line x1="16" y1="6" x2="16" y2="22"></line>
-                  </svg>
+                  <img src="assets/ui-icons/icon_location.png" alt="" class="menu-cmd-pixel-icon">
                 </span>
                 <span class="cmd-label">RESUME TO MAP</span>
                 <span class="cmd-arrow">›</span>
@@ -607,10 +613,7 @@
               <!-- 2. DESTINATION SEARCH -->
               <button type="button" id="menu-btn-search" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="Destination Search">
                 <span class="cmd-icon-box">
-                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
+                  <img src="assets/ui-icons/ui_search_icon.png" alt="" class="menu-cmd-pixel-icon">
                 </span>
                 <span class="cmd-label">DESTINATION SEARCH</span>
                 <span class="cmd-arrow">›</span>
@@ -619,10 +622,7 @@
               <!-- 3. CHARACTER -->
               <button type="button" id="menu-btn-character" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="Character Selection">
                 <span class="cmd-icon-box">
-                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-                    <circle cx="12" cy="7" r="4"></circle>
-                    <path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2"></path>
-                  </svg>
+                  <img src="assets/ui-icons/icon_character.png" alt="" class="menu-cmd-pixel-icon">
                 </span>
                 <span class="cmd-label">CHARACTER</span>
                 <span class="cmd-arrow">›</span>
@@ -631,10 +631,7 @@
               <!-- 4. SETTINGS -->
               <button type="button" id="menu-btn-settings" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="Settings">
                 <span class="cmd-icon-box">
-                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                  </svg>
+                  <img src="assets/ui-icons/icon_settings.png" alt="" class="menu-cmd-pixel-icon">
                 </span>
                 <span class="cmd-label">SETTINGS</span>
                 <span class="cmd-arrow">›</span>
@@ -643,10 +640,7 @@
               <!-- 5. HOW TO NAVIGATE -->
               <button type="button" id="menu-btn-help" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="How to Navigate">
                 <span class="cmd-icon-box">
-                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                  </svg>
+                  <img src="assets/ui-icons/icon_navigation.png" alt="" class="menu-cmd-pixel-icon">
                 </span>
                 <span class="cmd-label">HOW TO NAVIGATE</span>
                 <span class="cmd-arrow">›</span>
@@ -655,11 +649,7 @@
               <!-- 6. ABOUT -->
               <button type="button" id="menu-btn-about" class="menu-cmd-btn cmd-secondary" role="menuitem" aria-label="About College Navigator">
                 <span class="cmd-icon-box">
-                  <svg class="cmd-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
+                  <img src="assets/ui-icons/icon_info.png" alt="" class="menu-cmd-pixel-icon">
                 </span>
                 <span class="cmd-label">ABOUT</span>
                 <span class="cmd-arrow">›</span>
@@ -695,9 +685,7 @@
             <div class="settings-panel-corner corner-br"></div>
 
             <button type="button" id="btn-settings-back" class="settings-back-btn back-btn" data-back-to="menu" aria-label="Return to Previous Screen" title="Back">
-              <svg class="settings-back-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
+              <img src="assets/ui-icons/icon_back.png" alt="Back" class="back-pixel-icon">
             </button>
 
             <div class="settings-header-center">
@@ -847,10 +835,7 @@
             <!-- Bottom Notice Banner with Gear Icon -->
             <div class="settings-notice-box">
               <div class="notice-gear-box">
-                <svg viewBox="0 0 24 24" class="notice-gear-svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square">
-                  <circle cx="12" cy="12" r="3"></circle>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
+                <img src="assets/ui-icons/icon_settings.png" alt="" class="notice-gear-pixel-icon" style="width: 20px; height: 20px; image-rendering: pixelated; vertical-align: middle;">
               </div>
               <div class="notice-gear-text">Adjust these settings to customize your College Navigator experience.</div>
             </div>
@@ -878,8 +863,8 @@
           </div>
 
           <!-- Back button only — no duplicated application header -->
-          <button type="button" id="btn-how-back" class="info-back-btn" aria-label="Go back">
-            <img src="assets/icon_back.png" alt="Back" class="info-back-icon">
+          <button type="button" id="btn-how-back" class="info-back-btn back-btn" data-back-to="map" aria-label="Go back" title="Back">
+            <img src="assets/ui-icons/icon_back.png" alt="Back" class="info-back-icon back-pixel-icon">
           </button>
 
           <!-- Central architectural content panel -->
@@ -1055,8 +1040,8 @@
           </div>
 
           <!-- Back button only — no duplicated application header -->
-          <button type="button" id="btn-about-back" class="info-back-btn" aria-label="Go back">
-            <img src="assets/icon_back.png" alt="Back" class="info-back-icon">
+          <button type="button" id="btn-about-back" class="info-back-btn back-btn" data-back-to="map" aria-label="Go back" title="Back">
+            <img src="assets/ui-icons/icon_back.png" alt="Back" class="info-back-icon back-pixel-icon">
           </button>
 
           <!-- Central architectural content panel -->
@@ -1187,6 +1172,48 @@
 
     </div><!-- /app-viewport -->
 
+    <!-- OVERLAY: CAMPUS GUIDE RETRO DIALOGUE (Phase 7) -->
+    <div id="npc-dialogue-overlay" class="npc-dialogue-overlay" style="display: none;" role="dialog" aria-modal="true" aria-label="Campus Guide Conversation">
+      <div class="npc-dialogue-card">
+        <div class="dialogue-card-corner corner-tl"></div>
+        <div class="dialogue-card-corner corner-tr"></div>
+        <div class="dialogue-card-corner corner-bl"></div>
+        <div class="dialogue-card-corner corner-br"></div>
+
+        <div class="npc-dialogue-header">
+          <div class="npc-portrait-frame">
+            <img src="assets/optimised/character/guide_portrait.png" alt="Campus Guide Portrait" class="npc-portrait-img">
+          </div>
+          <div class="npc-speaker-meta">
+            <div class="npc-speaker-badge">
+              <span class="speaker-gem">◆</span>
+              <span>CAMPUS GUIDE</span>
+              <span class="speaker-gem">◆</span>
+            </div>
+            <div class="npc-speaker-title">CSE Block Information</div>
+          </div>
+          <button type="button" id="btn-dialogue-close" class="dialogue-close-btn" aria-label="Close dialogue" title="Close">✕</button>
+        </div>
+
+        <div class="npc-dialogue-content">
+          <p id="npc-dialogue-speech" class="npc-dialogue-speech"></p>
+        </div>
+
+        <div class="npc-dialogue-footer">
+          <div class="dialogue-page-dots" id="dialogue-page-dots">
+            <span class="page-dot active"></span>
+            <span class="page-dot"></span>
+            <span class="page-dot"></span>
+            <span class="page-dot"></span>
+          </div>
+          <button type="button" id="btn-dialogue-next" class="dialogue-next-btn">
+            <span id="dialogue-next-label">NEXT</span>
+            <span class="dialogue-btn-keycap">[E]</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- OVERLAY: PRODUCTION ARRIVAL MODAL (Preserved for 100% Phase 6 test compatibility) -->
     <div id="arrival-modal" class="arrival-modal-overlay" style="display: none;">
       <div class="arrival-modal-container">
@@ -1218,13 +1245,13 @@
       </button>
       <button type="button" id="nav-tab-character" class="nav-tab-btn" data-target="character_select" aria-selected="false">
         <span class="nav-tab-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <img src="assets/ui-icons/icon_character.png" alt="Character" style="width: 20px; height: 20px; image-rendering: pixelated;">
         </span>
         <span class="nav-tab-label">Character</span>
       </button>
       <button type="button" id="nav-tab-settings" class="nav-tab-btn" data-target="settings" aria-selected="false">
         <span class="nav-tab-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <img src="assets/ui-icons/icon_settings.png" alt="Settings" style="width: 20px; height: 20px; image-rendering: pixelated;">
         </span>
         <span class="nav-tab-label">Settings</span>
       </button>

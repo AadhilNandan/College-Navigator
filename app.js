@@ -17,7 +17,10 @@ import { fetchRooms } from "./js/api-client.js";
 import { MovementSystem } from "./js/movement.js";
 import { AppState, setCharacter, setMapMode, MAP_SCENES, setMapScene } from "./js/state.js";
 import { ScreenManager, SCREENS } from "./js/screen-manager.js";
-import { NavigationService } from "./js/navigation-service.js";
+import { NavigationService, isWashroomRestricted } from "./js/navigation-service.js";
+import { CampusGuide } from "./js/campus-guide.js";
+import { RoamingStudent } from "./js/roaming-student.js";
+import { AudioManager } from "./js/audio-manager.js";
 
 
 async function initApp() {
@@ -81,7 +84,13 @@ async function initApp() {
     t_canvas_end = performance.now();
 
     await MovementSystem.init(nodes, edges, AppState.character || "boy");
+    CampusGuide.init({
+      getPlayerPos: MovementSystem.getPlayerPos,
+      setInputEnabled: MovementSystem.setInputEnabled
+    });
+    RoamingStudent.init(nodes, edges);
     NavigationService.init(nodes, activeRooms);
+    AudioManager.init();
     T6 = performance.now();
 
     // 4. Mobile Exploration Camera (Presentation-Only, Viewport-Preserving)
@@ -220,6 +229,9 @@ async function initApp() {
     }
     window.addEventListener("resize", resizeCanvas);
     window.addEventListener("orientationchange", resizeCanvas);
+    if (typeof ResizeObserver !== "undefined" && mapContainer) {
+      new ResizeObserver(() => resizeCanvas()).observe(mapContainer);
+    }
     resizeCanvas();
 
 
@@ -319,7 +331,7 @@ async function initApp() {
         const hitDoor = nodes.find(n => n.type === "ROOM_DOOR" && Math.hypot(n.x - worldX, n.y - worldY) <= 1.2);
         if (hitDoor) {
           const room = activeRooms.find(r => r.doors && r.doors.some(d => d.node === hitDoor.id));
-          if (room && !room.locked) {
+          if (room && !room.locked && !isWashroomRestricted(room.id, AppState.character)) {
             NavigationService.selectDestination(room.id, hitDoor.id);
             NavigationService.calculateAndStartRoute();
           }
@@ -672,6 +684,8 @@ SUBSYSTEM BREAKDOWN:
       const t_update_start = performance.now();
       MovementSystem.update(deltaTime);
       const playerPos = MovementSystem.getPlayerPos();
+      CampusGuide.update(playerPos, deltaTime);
+      RoamingStudent.update(deltaTime);
       NavigationService.checkArrival(playerPos);
 
       // State-driven one-shot transition with hysteresis (Requirement 16.1 - 16.5)
@@ -832,7 +846,11 @@ SUBSYSTEM BREAKDOWN:
         mapScene: AppState.mapScene,
         drawPlayer: MovementSystem.drawPlayer,
         drawDebug: MovementSystem.drawDebug,
-        playerPos
+        drawNpc: CampusGuide.draw,
+        drawStudent: RoamingStudent.draw,
+        playerPos,
+        guideY: CampusGuide.y,
+        getStudentY: RoamingStudent.getY
       });
       const t_world_end = performance.now();
 
@@ -894,11 +912,15 @@ SUBSYSTEM BREAKDOWN:
       window.ScreenManager = ScreenManager;
       window.NavigationService = NavigationService;
       window.MovementSystem = MovementSystem;
+      window.CampusGuide = CampusGuide;
+      window.RoamingStudent = RoamingStudent;
       window.__navigator = {
         AppState,
         ScreenManager,
         NavigationService,
         MovementSystem,
+        CampusGuide,
+        RoamingStudent,
         camera,
         mapScene: AppState.mapScene,
         getMapScene: () => AppState.mapScene,

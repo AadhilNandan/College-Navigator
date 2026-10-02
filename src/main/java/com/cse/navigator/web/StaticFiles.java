@@ -99,6 +99,14 @@ public final class StaticFiles {
         }
 
         if (!Files.isRegularFile(target)) {
+            // Check ui-icons subfolder for root assets/ requests (e.g. assets/icon_back.png)
+            if (pathStr.startsWith("assets/") && !pathStr.startsWith("assets/ui-icons/")) {
+                String filename = target.getFileName().toString();
+                Path uiIconFallback = root.resolve("assets/ui-icons/" + filename);
+                if (Files.isRegularFile(uiIconFallback)) {
+                    return Optional.of(uiIconFallback);
+                }
+            }
             return Optional.empty();
         }
 
@@ -117,6 +125,9 @@ public final class StaticFiles {
         if (name.endsWith(".png")) return "image/png";
         if (name.endsWith(".webp")) return "image/webp";
         if (name.endsWith(".svg")) return "image/svg+xml";
+        if (name.endsWith(".wav")) return "audio/wav";
+        if (name.endsWith(".ogg")) return "audio/ogg";
+        if (name.endsWith(".mp3")) return "audio/mpeg";
         return "application/octet-stream";
     }
 
@@ -143,7 +154,7 @@ public final class StaticFiles {
         exchange.getResponseHeaders().set("Content-Type", contentType);
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
         if (path.startsWith("/assets/")) {
-            exchange.getResponseHeaders().set("Cache-Control", "public, max-age=86400");
+            exchange.getResponseHeaders().set("Cache-Control", "no-cache, must-revalidate");
         }
         exchange.sendResponseHeaders(200, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {

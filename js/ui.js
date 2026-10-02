@@ -9,8 +9,9 @@
 
 import { AppState, setCharacter, updateSettings, setMapMode, subscribe } from "./state.js";
 import { ScreenManager, SCREENS, OVERLAYS } from "./screen-manager.js";
-import { NavigationService } from "./navigation-service.js";
+import { NavigationService, isWashroomRestricted } from "./navigation-service.js";
 import { MovementSystem } from "./movement.js";
+import { AudioManager } from "./audio-manager.js";
 
 export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMode, toggleOverviewMode, isOverviewMode, setExplorationZoom, resizeCanvas }) {
   const roomsMap = new Map(rooms.map(r => [r.id, r]));
@@ -144,6 +145,7 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       }
       if (btnCharBoy) {
         btnCharBoy.onclick = () => {
+          AudioManager.playSfx("character-select");
           setCharacter("boy");
           MovementSystem.setCharacter("boy");
           updateCharSelectionUI("boy");
@@ -151,6 +153,7 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       }
       if (btnCharGirl) {
         btnCharGirl.onclick = () => {
+          AudioManager.playSfx("character-select");
           setCharacter("girl");
           MovementSystem.setCharacter("girl");
           updateCharSelectionUI("girl");
@@ -202,9 +205,12 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
 
     if (AppState.mapMode === "navigation" && AppState.navigation.destination) {
       navModePanel.style.display = "block";
+      if (mapScreenEl) mapScreenEl.classList.add("has-nav-panel");
+      const routeDetailsEl = document.getElementById("route-details");
+      if (routeDetailsEl) routeDetailsEl.open = false;
       const dest = AppState.navigation.destination;
       const route = AppState.navigation.route;
-      const isSim = MovementSystem.isSimulating && MovementSystem.isSimulating();
+      const isSim = (MovementSystem.isSimulating && MovementSystem.isSimulating()) || (AppState.navigation && AppState.navigation.navMode === "simulate");
 
       if (routeTitle) {
         routeTitle.textContent = `${dest.roomCode} — ${dest.name || ""}`;
@@ -222,18 +228,22 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
           if (modeBtnIcon) modeBtnIcon.textContent = "🕹️";
           if (modeBtnLabel) modeBtnLabel.textContent = "Manual";
           btnToggleMode.title = "Switch to Manual Movement with Joystick";
+          btnToggleMode.classList.add("mode-sim-active");
+          btnToggleMode.classList.remove("mode-manual-active");
         } else {
           if (modeBtnIcon) modeBtnIcon.textContent = "🚶";
           if (modeBtnLabel) modeBtnLabel.textContent = "Simulate";
           btnToggleMode.title = "Auto-walk specified path";
+          btnToggleMode.classList.add("mode-manual-active");
+          btnToggleMode.classList.remove("mode-sim-active");
         }
       }
 
       if (routeStatus) {
         if (isSim) {
-          routeStatus.innerHTML = `<span class="badge-status-sim">🚶 SIMULATING</span> Character walking route automatically. Touch joystick to take control!`;
+          routeStatus.innerHTML = `<span class="badge-status-sim">🚶 SIMULATING</span> <span class="status-msg">Character walking route automatically. Touch joystick to take control!</span>`;
         } else {
-          routeStatus.innerHTML = `<span class="badge-status-manual">🕹️ MANUAL</span> Path highlighted on floor. Move character using joystick!`;
+          routeStatus.innerHTML = `<span class="badge-status-manual">🕹️ MANUAL</span> <span class="status-msg">Path highlighted on floor. Move character using joystick!</span>`;
         }
       }
 
@@ -291,6 +301,7 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       }
     } else {
       navModePanel.style.display = "none";
+      if (mapScreenEl) mapScreenEl.classList.remove("has-nav-panel");
     }
   }
 
@@ -311,6 +322,7 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       // Camera mode toggle (Requirement 9 & 11: Overview / Exploration)
       if (btnCameraToggle) {
         bindTapAction(btnCameraToggle, () => {
+          AudioManager.playSfx("toggle");
           if (typeof toggleOverviewMode === 'function') {
             toggleOverviewMode();
           } else {
@@ -402,7 +414,8 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       // Navigation Mode Controls
       if (btnToggleMode) {
         btnToggleMode.onclick = () => {
-          const isSim = MovementSystem.isSimulating && MovementSystem.isSimulating();
+          AudioManager.playSfx("toggle");
+          const isSim = (MovementSystem.isSimulating && MovementSystem.isSimulating()) || (AppState.navigation && AppState.navigation.navMode === "simulate");
           if (isSim) {
             NavigationService.setNavMode("manual");
           } else {
@@ -581,7 +594,7 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       fromSheetOptions.appendChild(makeOption("ENTRANCE", "🚪", "Main Entrance (Level 1)", "Campus entryway & security checkpoint", currentOriginId === "ENTRANCE"));
 
       // Categorized searchable rooms
-      const validRooms = rooms.filter(r => !r.locked && r.searchable !== false);
+      const validRooms = rooms.filter(r => !r.locked && r.searchable !== false && !isWashroomRestricted(r.id, AppState.character));
       const categories = [
         { id: "CLASSROOM", label: "Classrooms" },
         { id: "LABORATORY", label: "Laboratories" },
@@ -791,6 +804,11 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
 
     // Filter rooms
     const filtered = roomsData.filter(room => {
+      // Gender-restricted washroom check: completely excluded from search results and destination cards
+      if (isWashroomRestricted(room.id, AppState.character)) {
+        return false;
+      }
+
       if (activeFilter !== "all") {
         if (activeFilter === "LABORATORY") {
           if (room.category !== "LABORATORY") return false;
@@ -1289,6 +1307,8 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       if (toggleSound) {
         toggleSound.onclick = () => {
           const next = !AppState.settings.sound;
+          AudioManager.playSfx("toggle");
+          AudioManager.setMuted(!next);
           updateSettings({ sound: next });
           syncToggleVisual(toggleSound, next);
         };
@@ -1298,6 +1318,8 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       if (toggleMusic) {
         toggleMusic.onclick = () => {
           const next = !AppState.settings.music;
+          AudioManager.playSfx("toggle");
+          AudioManager.setMusicMuted(!next);
           updateSettings({ music: next });
           syncToggleVisual(toggleMusic, next);
         };
@@ -1489,6 +1511,61 @@ export function setupUI({ rooms, nodesMap, camera, recenterCamera, setOverviewMo
       ScreenManager.navigateTo(SCREENS.ABOUT);
     });
   }
+
+  // Centralized UI Button Click handler for all standard buttons
+  // Excludes buttons with custom sound handlers to prevent double sounds
+  if (typeof document !== "undefined") {
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button, .btn, .nav-tab-btn, [role='button']");
+      if (!btn) return;
+
+      // Filter out buttons with specific dedicated sound events
+      if (
+        btn.classList.contains("back-btn") ||
+        btn.classList.contains("info-back-btn") ||
+        btn.classList.contains("character-back-btn") ||
+        btn.id === "btn-settings-back" ||
+        btn.id === "btn-menu-back" ||
+        btn.id === "btn-search-back" ||
+        btn.classList.contains("rpg-toggle") ||
+        btn.classList.contains("toggle-btn") ||
+        btn.id === "setting-sound-toggle" ||
+        btn.id === "setting-music-toggle" ||
+        btn.id === "btn-camera-toggle" ||
+        btn.id === "btn-toggle-mode" ||
+        btn.id === "btn-char-boy" ||
+        btn.id === "btn-char-girl" ||
+        btn.id === "btn-dialogue-next" ||
+        btn.id === "btn-dialogue-close" ||
+        btn.id === "npc-dialogue-speech" ||
+        btn.id === "btn-npc-interact" ||
+        btn.closest(".btn-sim-quick") ||
+        btn.closest(".btn-man-quick") ||
+        btn.dataset.sfx === "none"
+      ) {
+        return;
+      }
+
+      // Entering map via bottom tab or continue button (handled by map-enter)
+      if (btn.dataset.target === "map" || btn.id === "nav-tab-map" || btn.id === "btn-char-confirm") {
+        return;
+      }
+
+      AudioManager.playSfx("click");
+    }, true);
+  }
+
+  // React to character changes: auto-cancel restricted navigation and refresh search results
+  subscribe("character", (newChar) => {
+    if (AppState.navigation && AppState.navigation.destination) {
+      if (isWashroomRestricted(AppState.navigation.destination.roomId, newChar)) {
+        NavigationService.cancelNavigation();
+      }
+    }
+    if (searchResults) {
+      renderSearchResults(searchInput ? searchInput.value : "");
+    }
+  });
 
   return {
     selectRoom: (roomId, doorId) => {
